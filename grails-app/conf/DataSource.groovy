@@ -1,8 +1,5 @@
 dataSource {
     pooled = true
-    driverClassName = "org.h2.Driver"
-    username = "sa"
-    password = ""
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -15,18 +12,27 @@ environments {
         dataSource {
             dbCreate = "create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
             url = "jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            driverClassName = "org.h2.Driver"
+            username = "sa"
+            password = ""
         }
     }
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+            dbCreate = "create-drop"
+	        url = "[[jdbc:cloudbees://wishlist-db-test]]"
+            driverClassName = "com.cloudbees.jdbc.Driver"
+            username = "wish-test"
+            password = "list"
         }
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:h2:prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000"
+	        url = "[[jdbc:cloudbees://wishlist-db]]"
+            driverClassName = "com.cloudbees.jdbc.Driver"
+            username = "wish"
+            password = "list"
             pooled = true
             properties {
                maxActive = -1
