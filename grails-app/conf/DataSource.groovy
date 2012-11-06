@@ -20,8 +20,9 @@ environments {
     test {
         dataSource {
             dbCreate = "create-drop"
-	        url = "[[jdbc:cloudbees://wishlist-db-test]]"
-            driverClassName = "com.cloudbees.jdbc.Driver"
+            driverClassName = "com.mysql.jdbc.Driver"
+            dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+            url = "jdbc:mysql://ec2-23-21-211-172.compute-1.amazonaws.com:3306/wishlist-db-test"
             username = "wish-test"
             password = "list"
         }
@@ -29,8 +30,9 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-	        url = "[[jdbc:cloudbees://wishlist-db]]"
-            driverClassName = "com.cloudbees.jdbc.Driver"
+            driverClassName = "com.mysql.jdbc.Driver"
+            dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
+            url = "jdbc:mysql://ec2-23-21-211-172.compute-1.amazonaws.com:3306/wishlist-db"
             username = "wish"
             password = "list"
             pooled = true
