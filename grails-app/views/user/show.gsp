@@ -10,7 +10,7 @@
 <body>
 
     <g:if test="${flash.message}">
-        <div class="alert alert-error">${flash.message}</div>
+        <div class="alert alert-success">${flash.message}</div>
     </g:if>
 
     <table class="table table-bordered">
