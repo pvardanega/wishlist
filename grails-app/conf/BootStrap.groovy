@@ -13,7 +13,7 @@ class BootStrap {
                 def testUser = new User(username: 'me', enabled: true, password: 'password')
                 testUser.save(flush: true)
 
-                UserRole.create testUser, userRole, true
+                UserRole.create testUser, adminRole, true
             }
         }
     }

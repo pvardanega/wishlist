@@ -15,8 +15,7 @@ class UserController {
 
     @Secured(['ROLE_ADMIN'])
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [userInstanceList: User.list(params), userInstanceTotal: User.count()]
+        [userInstanceList: User.list(), userInstanceTotal: User.count()]
     }
 
     def create() {
