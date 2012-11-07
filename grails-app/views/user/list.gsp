@@ -16,17 +16,18 @@
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <g:sortableColumn property="username" title="${message(code: 'user.username.label')}" />
-                    <g:sortableColumn property="enabled" title="${message(code: 'user.enabled.label')}" />
+                    <g:sortableColumn property="firstname" title="${message(code: 'user.firstname.label')}" />
+                    <g:sortableColumn property="lastname" title="${message(code: 'user.lastname.label')}" />
+                    <g:sortableColumn property="email" title="${message(code: 'user.email.label')}" />
                 </tr>
             </thead>
             <tbody>
             <g:each in="${userInstanceList}" status="i" var="userInstance">
                 <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-                    <td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "username")}</g:link></td>
-
-                    <td><g:formatBoolean boolean="${userInstance.enabled}" /></td>
+                    <td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "firstname")}</g:link></td>
+                    <td><g:fieldValue bean="${userInstance}" field="lastname"/></td>
+                    <td><g:fieldValue bean="${userInstance}" field="email"/></td>
 
                 </tr>
             </g:each>

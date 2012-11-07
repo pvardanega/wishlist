@@ -4,6 +4,9 @@ class User {
 
 	transient springSecurityService
 
+    String firstname
+    String lastname
+    String email
 	String username
 	String password
 	boolean enabled
@@ -12,6 +15,9 @@ class User {
 	boolean passwordExpired
 
 	static constraints = {
+        firstname blank: false
+        lastname blank: false
+        email blank: false, unique: false, email: true
 		username blank: false, unique: true
 		password blank: false
 	}

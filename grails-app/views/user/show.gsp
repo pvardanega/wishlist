@@ -47,8 +47,16 @@
 
     <table class="table table-bordered">
         <tr>
-            <td class="span2"><g:message code="user.username.label" /></td>
-            <td><g:fieldValue bean="${userInstance}" field="username" /></td>
+            <td class="span2"><g:message code="user.firstname.label" /></td>
+            <td><g:fieldValue bean="${userInstance}" field="firstname" /></td>
+        </tr>
+        <tr>
+            <td class="span2"><g:message code="user.lastname.label" /></td>
+            <td><g:fieldValue bean="${userInstance}" field="lastname" /></td>
+        </tr>
+        <tr>
+            <td class="span2"><g:message code="user.email.label" /></td>
+            <td><g:fieldValue bean="${userInstance}" field="email" /></td>
         </tr>
         <tr>
             <td class="span2"><g:message code="user.enabled.label" /></td>
