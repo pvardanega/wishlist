@@ -85,6 +85,7 @@ class UserController {
         redirect(action: "show", id: userInstance.id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete() {
         def userInstance = User.get(params.id)
         if (!userInstance) {

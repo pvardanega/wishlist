@@ -37,4 +37,8 @@ class User {
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
 	}
+
+    def isAdmin() {
+        getAuthorities().contains(Role.findByAuthority("ROLE_ADMIN"))
+    }
 }

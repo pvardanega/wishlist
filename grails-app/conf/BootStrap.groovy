@@ -14,6 +14,7 @@ class BootStrap {
                 testUser.save(flush: true)
 
                 UserRole.create testUser, adminRole, true
+//                UserRole.create testUser, adminRole, true
             }
         }
     }
