@@ -7,7 +7,9 @@
     <r:layoutResources/>
 </head>
 <body>
-    <g:layoutBody/>
+    <div class="container">
+        <g:layoutBody/>
+    </div>
     <r:layoutResources/>
 </body>
 </html>
