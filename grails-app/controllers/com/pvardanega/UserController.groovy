@@ -24,6 +24,13 @@ class UserController {
 
     def save() {
         def userInstance = new User(params)
+
+        if (params.password != params.confirmation) {
+            flash.message = message(code: 'user.error.password.confirmation.different')
+            render(view: "create", model: [userInstance: userInstance])
+            return
+        }
+
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
             return
@@ -57,6 +64,7 @@ class UserController {
 
     def update() {
         def userInstance = User.get(params.id)
+
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
@@ -72,6 +80,12 @@ class UserController {
                 render(view: "edit", model: [userInstance: userInstance])
                 return
             }
+        }
+
+        if (params.password != params.confirmation) {
+            flash.message = message(code: 'user.error.password.confirmation.different')
+            render(view: "edit", model: [userInstance: userInstance])
+            return
         }
 
         userInstance.properties = params
@@ -95,6 +109,8 @@ class UserController {
         }
 
         try {
+            userInstance.enabled = true
+            userInstance.username = userInstance.email.split("@")[0]
             userInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
