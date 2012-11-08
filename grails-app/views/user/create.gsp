@@ -12,18 +12,14 @@
         <div class="alert alert-error">${flash.message}</div>
     </g:if>
 
-    <div class="row">
-        <div class="span8">
-            <g:form action="save" class="form-horizontal">
-                <fieldset>
-                    <g:render template="form"/>
-                </fieldset>
-                <fieldset class="form-actions">
-                    <button type="submit" name="create" class="btn btn-primary"><i class="icon-pencil icon-white"></i> <g:message code="default.button.create.label"/></button>
-                </fieldset>
-            </g:form>
-        </div>
-    </div>
+    <g:form action="save" class="form-horizontal">
+        <fieldset>
+            <g:render template="form"/>
+        </fieldset>
+        <fieldset class="form-actions">
+            <button type="submit" name="create" class="btn btn-primary"><i class="icon-pencil icon-white"></i> <g:message code="default.button.create.label"/></button>
+        </fieldset>
+    </g:form>
 
 </body>
 </html>

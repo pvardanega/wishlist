@@ -31,10 +31,15 @@ class UserController {
             return
         }
 
+        userInstance.enabled = true
+        userInstance.username = userInstance.firstname.capitalize() + " " + userInstance.lastname.charAt(0) + "."
+
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
             return
         }
+
+        UserRole.create userInstance, Role.findByAuthority("ROLE_USER"), true
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect(action: "show", id: userInstance.id)
@@ -88,6 +93,7 @@ class UserController {
             return
         }
 
+        params.username = userInstance.firstname.capitalize() + " " + userInstance.lastname.charAt(0) + "."
         userInstance.properties = params
 
         if (!userInstance.save(flush: true)) {
@@ -109,8 +115,6 @@ class UserController {
         }
 
         try {
-            userInstance.enabled = true
-            userInstance.username = userInstance.email.split("@")[0]
             userInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")

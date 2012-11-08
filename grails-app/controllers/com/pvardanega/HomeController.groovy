@@ -6,6 +6,10 @@ import grails.plugins.springsecurity.Secured
 class HomeController {
 
     def index() {
-        render 'Hello world'
+        if (sec.ifAllGranted(roles: "ROLE_ADMIN")) {
+            redirect controller: 'user'
+        } else {
+            redirect controller: 'user', action: 'show', id: sec.loggedInUserInfo(field: 'id')
+        }
     }
 }
