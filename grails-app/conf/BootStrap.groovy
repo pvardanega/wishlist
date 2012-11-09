@@ -10,13 +10,18 @@ class BootStrap {
                 def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
                 def userRole = new Role(authority: 'ROLE_USER').save(flush: true)
 
-                def testUser = new User(username: 'me', email: 'test@yopmail.com',
+                def adminUser = new User(username: 'admin', email: 'admin@yopmail.com',
                         firstname: 'firstname', lastname: 'lastname', enabled: true,
                         password: 'password')
-                testUser.save(flush: true)
+                adminUser.save(flush: true)
 
-                UserRole.create testUser, adminRole, true
-//                UserRole.create testUser, adminRole, true
+                def user = new User(username: 'user', email: 'user@yopmail.com',
+                        firstname: 'firstname', lastname: 'lastname', enabled: true,
+                        password: 'password')
+                user.save(flush: true)
+
+                UserRole.create adminUser, adminRole, true
+                UserRole.create user, userRole, true
             }
         }
     }

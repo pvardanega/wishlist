@@ -13,7 +13,7 @@
         <div class="alert alert-success">${flash.message}</div>
     </g:if>
 
-    <table class="table table-bordered">
+    <table class="table">
         <tr>
             <td class="span2"><g:message code="user.firstname.label" /></td>
             <td><g:fieldValue bean="${userInstance}" field="firstname" /></td>
@@ -40,7 +40,7 @@
             <fieldset class="form-actions">
                 <div class="btn-group">
                     <g:link controller="user" action="edit" id="${userInstance.id}" class="btn btn-primary"><i class="icon-edit icon-white"></i> <g:message code="default.button.edit.label"/></g:link>
-                <!-- Modal windows to confirm deletion -->
+                    <!-- Modal windows to confirm deletion -->
                     <g:if test="${loggedInUser.isAdmin()}">
                         <div id="deleteUserModal" class="modal hide fade">
                             <div class="modal-header">

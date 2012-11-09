@@ -10,7 +10,7 @@ class UserController {
 
     @Secured(['ROLE_ADMIN'])
     def index() {
-        redirect(action: "list", params: params)
+        redirect(action: "list")
     }
 
     @Secured(['ROLE_ADMIN'])
@@ -32,7 +32,10 @@ class UserController {
         }
 
         userInstance.enabled = true
-        userInstance.username = userInstance.firstname.capitalize() + " " + userInstance.lastname.charAt(0) + "."
+        userInstance.username = userInstance.firstname?.capitalize() +
+                                " " +
+                                userInstance.lastname?.charAt(0)?.toUpperCase() +
+                                "."
 
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
@@ -93,7 +96,7 @@ class UserController {
             return
         }
 
-        params.username = userInstance.firstname.capitalize() + " " + userInstance.lastname.charAt(0) + "."
+        params.username = userInstance.firstname?.capitalize() + " " + userInstance.lastname?.charAt(0)?.toUpperCase() + "."
         userInstance.properties = params
 
         if (!userInstance.save(flush: true)) {
@@ -115,6 +118,7 @@ class UserController {
         }
 
         try {
+            UserRole.removeAll(userInstance)
             userInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")

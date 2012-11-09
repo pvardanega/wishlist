@@ -19,7 +19,7 @@ class CustomUserDetailsService implements GrailsUserDetailsService {
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User.withTransaction { status ->
-            User user = User.findByUsernameOrEmail(username, username)
+            User user = User.findByEmail(username)
             if (!user)
                 throw new UsernameNotFoundException('User not found', username)
 

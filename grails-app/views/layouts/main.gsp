@@ -29,9 +29,9 @@
                         <ul class="nav">
                             <li class="active"><a href="#"><i class="icon-home"></i></a></li>
                             <li><a href=""><g:message code="app.menu.my.wishes"/></a></li>
-                            <li><a href="#"><g:message code="app.menu.friends.wishes"/></a></li>
+                            <li><a href=""><g:message code="app.menu.friends.wishes"/></a></li>
                         </ul>
-                    </div><!--/.nav-collapse -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,6 +40,7 @@
     <div class="container">
         <g:layoutBody/>
     </div>
+
     <r:layoutResources/>
 
 </body>
