@@ -5,3 +5,4 @@
 target
 *.iml
 stacktrace.log
+out
