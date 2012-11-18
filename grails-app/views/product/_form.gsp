@@ -1,9 +1,25 @@
 <%@ page import="com.pvardanega.Product" %>
 
+<div class="control-group pull ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')}">
+    <div class="controls">
+        %{--<img src="${productInstance.pictureUrl}" width="70" class="img-polaroid"/>--}%
+        <img src="http://images.mortderire.com/images/chat-dans-le-bocal.jpg" width="70" class="img-polaroid"/>
+        <span class='help-inline'>
+            <g:eachError bean="${productInstance}" field="pictureUrl">
+                <g:message error="${it}"/>
+            </g:eachError>
+        </span>
+    </div>
+</div>
+
 <div class="control-group ${hasErrors(bean: productInstance, field: 'title', 'error')}">
     <label for="title" class="control-label"><g:message code="product.title.label"/></label>
     <div class="controls">
-        <g:textField name="title" value="${productInstance.title}" class="span8" maxlength="256" placeholder="Appareil photo"/>
+        <div class="input-append">
+            <g:textField name="title" value="${productInstance.title}" class="span12" maxlength="256"
+                         placeholder="${message(code: 'product.title.placeholder')}"/>
+            <button class="btn" type="button">Trouver une image</button>
+        </div>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="title">
                 <g:message error="${it}"/>
@@ -48,23 +64,11 @@
     </div>
 </div>
 
-<div class="control-group ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')}">
-    <label for="pictureUrl" class="control-label"><g:message code="product.picture.label"/></label>
-    <div class="controls">
-        <g:textField name="pictureUrl" value="${productInstance?.pictureUrl}" class="span8"/>
-        <span class='help-inline'>
-            <g:eachError bean="${productInstance}" field="pictureUrl">
-                <g:message error="${it}"/>
-            </g:eachError>
-        </span>
-    </div>
-</div>
-
 <div class="control-group ${hasErrors(bean: productInstance, field: 'price', 'error')}">
     <label for="price" class="control-label"><g:message code="product.price.label"/></label>
     <div class="controls">
         <div class="input-append">
-            <g:textField name="price" value="${productInstance?.price}" class="span5" placeholder="10.00" maxlength="7"/>
+            <g:textField name="price" value="${productInstance?.price}" class="span5" placeholder="${message(code: 'product.price.placeholder')}" maxlength="7"/>
             <span class="add-on">€</span>
         </div>
         <span class='help-inline'>
