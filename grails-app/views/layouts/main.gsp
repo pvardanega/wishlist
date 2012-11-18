@@ -35,7 +35,11 @@
                             <li><a href="#"><i class="icon-tag"></i> Baptiste V.</a></li>
                             <li><a href="#"><i class="icon-tag"></i> Jacques V.</a></li>
                             <li class="nav-header"><g:message code="app.menu.title.personal"/></li>
-                            <li><a href="#"><i class="icon-pencil"></i> <g:message code="app.menu.personal.infos"/></a></li>
+                            <li>
+                                <g:link controller="user" action="edit" id="${loggedInUserId}">
+                                    <i class="icon-pencil"></i> <g:message code="app.menu.personal.infos"/>
+                                </g:link>
+                            </li>
                             <li><a href="#"><i class="icon-pencil"></i> <g:message code="app.menu.personal.password"/></a></li>
                             <li><g:link controller="logout"><i class="icon-off"></i> <g:message
                                     code="app.menu.personal.logout"/></g:link></li>

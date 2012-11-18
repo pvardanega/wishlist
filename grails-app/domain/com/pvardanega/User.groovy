@@ -18,7 +18,7 @@ class User {
         firstname blank: false
         lastname blank: false
         email blank: false, unique: true, email: true
-		username blank: false, unique: true
+		username blank: false
 		password blank: false
 	}
 
