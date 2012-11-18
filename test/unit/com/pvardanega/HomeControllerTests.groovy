@@ -23,6 +23,6 @@ class HomeControllerTests {
 
         controller.index()
 
-        assert "/user/show/${user.id}" == response.redirectedUrl
+        assert "/product/list?userId=${user.id}" == response.redirectedUrl
     }
 }
