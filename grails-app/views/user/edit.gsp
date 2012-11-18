@@ -18,7 +18,7 @@
         <div class="control-group ${hasErrors(bean: userInstance, field: 'firstname', 'error')}">
             <label for="firstname" class="control-label"><g:message code="user.firstname.label"/></label>
             <div class="controls">
-                <g:textField name="firstname" value="${userInstance.firstname}"/>
+                <g:textField name="firstname" value="${userInstance.firstname}" class="span3"/>
                 <span class='help-inline'>
                     <g:eachError bean="${userInstance}" field="firstname">
                         <g:message error="${it}"/>
@@ -30,7 +30,7 @@
         <div class="control-group ${hasErrors(bean: userInstance, field: 'lastname', 'error')}">
             <label for="lastname" class="control-label"><g:message code="user.lastname.label"/></label>
             <div class="controls">
-                <g:textField name="lastname" value="${userInstance.lastname}"/>
+                <g:textField name="lastname" value="${userInstance.lastname}" class="span3"/>
                 <span class='help-inline'>
                     <g:eachError bean="${userInstance}" field="lastname">
                         <g:message error="${it}"/>
@@ -43,8 +43,8 @@
             <label for="email" class="control-label"><g:message code="user.email.label"/></label>
             <div class="controls">
                 <div class="input-prepend">
-                    <span class="add-on"><i class="icon-envelope"></i></span>
-                    <g:textField name="email" value="${userInstance.email}"/>
+                    <span class="add-on">@</span>
+                    <g:textField name="email" value="${userInstance.email}" class="span12"/>
                 </div>
                 <span class='help-inline'>
                     <g:eachError bean="${userInstance}" field="email">

@@ -15,7 +15,7 @@
         <div class="control-group ${hasErrors(bean: userInstance, field: 'password', 'error')}">
             <label for="password" class="control-label"><g:message code="user.password.label"/></label>
             <div class="controls">
-                <g:passwordField name="password"/>
+                <g:passwordField name="password" class="span3"/>
                 <span class='help-inline'>
                     <g:eachError bean="${userInstance}" field="password">
                         <g:message error="${it}"/>
@@ -27,7 +27,7 @@
         <div class="control-group ${hasErrors(bean: userInstance, field: 'confirmation', 'error')}">
             <label for="confirmation" class="control-label"><g:message code="user.confirmation.label"/></label>
             <div class="controls">
-                <g:passwordField name="confirmation"/>
+                <g:passwordField name="confirmation" class="span3"/>
                 <span class='help-inline'>
                     <g:eachError bean="${userInstance}" field="confirmation">
                         <g:message error="${it}"/>
