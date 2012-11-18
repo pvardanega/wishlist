@@ -7,7 +7,7 @@ class Product {
     static belongsTo = [owner: User]
 
     static constraints = {
-        title blank: false
+        title blank: false, maxSize: 256
         owner nullable: false
     }
 }
