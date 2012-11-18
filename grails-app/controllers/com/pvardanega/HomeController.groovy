@@ -9,6 +9,6 @@ class HomeController {
 
     def index() {
         User loggedInUser = springSecurityService.currentUser as User
-        redirect controller: 'user', action: 'show', id: loggedInUser.id
+        redirect controller: 'product', action: 'list', params: [userId: loggedInUser.id]
     }
 }

@@ -53,6 +53,6 @@ class PasswordController {
         }
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        redirect(controller: 'user', action: "show", id: userInstance.id)
+        redirect controller: 'product', action: 'list', params: [userId: userInstance.id]
     }
 }

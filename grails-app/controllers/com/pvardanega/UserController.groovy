@@ -18,10 +18,12 @@ class UserController {
         [userInstanceList: User.list(), userInstanceTotal: User.count()]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def create() {
         [userInstance: new User(params)]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def save() {
         def userInstance = new User(params)
 
@@ -48,6 +50,7 @@ class UserController {
         redirect(action: "show", id: userInstance.id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def show() {
         def userInstance = User.get(params.id)
         if (!userInstance) {
@@ -105,7 +108,7 @@ class UserController {
         }
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        redirect(action: "show", id: userInstance.id)
+        redirect controller: 'product', action: 'list', params: [userId: userInstance.id]
     }
 
     def delete() {
@@ -123,7 +126,7 @@ class UserController {
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
-            redirect(action: "show", id: params.id)
+            redirect controller: 'product', action: 'list', params: [userId: userInstance.id]
         }
     }
 }
