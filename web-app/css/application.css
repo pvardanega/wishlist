@@ -27,3 +27,13 @@ body {
     margin-bottom: 15px;
     padding: 7px 9px;
 }
+
+.visible {
+    visibility: visible;
+    position: relative;
+}
+
+.unvisible {
+    visibility: hidden;
+    position: absolute;
+}

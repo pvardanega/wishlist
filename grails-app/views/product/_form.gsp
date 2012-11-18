@@ -1,6 +1,6 @@
 <%@ page import="com.pvardanega.Product" %>
 
-<div class="control-group pull ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')}">
+<div id="picturediv" class="control-group pull ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')} ${productInstance?.pictureUrl ? 'visible' : 'unvisible'}">
     <div class="controls">
         %{--<img src="${productInstance.pictureUrl}" width="70" class="img-polaroid"/>--}%
         <img src="http://images.mortderire.com/images/chat-dans-le-bocal.jpg" width="70" class="img-polaroid"/>
@@ -64,6 +64,18 @@
     </div>
 </div>
 
+<div class="control-group ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')}">
+    <label for="pictureUrl" class="control-label"><g:message code="product.picture.label"/></label>
+    <div class="controls">
+        <g:textField id="picture" name="picture" value="${productInstance?.pictureUrl}" class="span8"/>
+        <span class='help-inline'>
+            <g:eachError bean="${productInstance}" field="pictureUrl">
+                <g:message error="${it}"/>
+            </g:eachError>
+        </span>
+    </div>
+</div>
+
 <div class="control-group ${hasErrors(bean: productInstance, field: 'price', 'error')}">
     <label for="price" class="control-label"><g:message code="product.price.label"/></label>
     <div class="controls">
@@ -82,3 +94,17 @@
         </span>
     </div>
 </div>
+
+<g:hiddenField name="pictureUrl" value="http://images.mortderire.com/images/chat-dans-le-bocal.jpg"/>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#picture").change(function() {
+            if (this.value == "") {
+                $("#picturediv").removeClass("visible").addClass("unvisible");
+            } else {
+                $("#picturediv").removeClass("unvisible").addClass("visible");
+            }
+        });
+    });
+</script>
