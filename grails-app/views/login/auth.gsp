@@ -1,10 +1,13 @@
 <html>
 <head>
-	<meta name='layout' content='main'/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><g:message code="springSecurity.login.title"/></title>
+    <r:require modules="application"/>
+    <r:require modules="bootstrap"/>
 </head>
 
-<body>
+<body style="background-color: #f5f5f5;">
 
     <g:if test='${flash.message}'>
         <div class="alert alert-error">${flash.message}</div>
@@ -28,6 +31,8 @@
         })();
         // -->
     </script>
+
+    <r:layoutResources/>
 
 </body>
 </html>
