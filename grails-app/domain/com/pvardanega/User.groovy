@@ -9,17 +9,21 @@ class User {
     String email
 	String username
 	String password
+	String confirmation
 	boolean enabled
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
 
+    static transients = ['confirmation']
+
 	static constraints = {
         firstname blank: false
         lastname blank: false
         email blank: false, unique: true, email: true
-		username blank: false, unique: true
+		username blank: false
 		password blank: false
+		confirmation blank: false
 	}
 
 	static mapping = {

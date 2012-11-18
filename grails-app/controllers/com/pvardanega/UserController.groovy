@@ -108,7 +108,6 @@ class UserController {
         redirect(action: "show", id: userInstance.id)
     }
 
-    @Secured(['ROLE_ADMIN'])
     def delete() {
         def userInstance = User.get(params.id)
         if (!userInstance) {
@@ -120,8 +119,7 @@ class UserController {
         try {
             UserRole.removeAll(userInstance)
             userInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
-            redirect(action: "list")
+            redirect(controller: 'logout')
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])

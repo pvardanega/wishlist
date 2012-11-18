@@ -11,35 +11,93 @@
 
     <sec:ifLoggedIn>
         <g:set var="loggedInUserId" value="${sec.loggedInUserInfo(field: 'id')}"/>
+
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
+                <div class="container-fluid">
                     <a class="brand" href="#"><g:message code="app.name"/></a>
                     <div class="nav-collapse collapse">
                         <p class="navbar-text pull-right">
-                            <g:message code="app.menu.logged.in"/> <g:link action="show" id="${loggedInUserId}" class
-                            ="navbar-link"><sec:username/></g:link>
-                            | <g:link controller="logout"><i class="icon-off icon-white"></i></g:link>
+                            <g:message code="app.navbar.logged.in"/> <sec:username/>
                         </p>
-                        <ul class="nav">
-                            <li class="active"><a href="#"><i class="icon-home"></i></a></li>
-                            <li><a href=""><g:message code="app.menu.my.wishes"/></a></li>
-                            <li><a href=""><g:message code="app.menu.friends.wishes"/></a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </sec:ifLoggedIn>
 
-    <div class="container">
-        <g:layoutBody/>
-    </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span3">
+                    <div class="well sidebar-nav">
+                        <ul class="nav nav-list">
+                            <li class="nav-header"><g:message code="app.menu.title.lists"/></li>
+                            <li><a href="#"><i class="icon-tag"></i> <g:message code="app.menu.lists.mine"/></a></li>
+                            <li><a href="#"><i class="icon-tag"></i> Amira L.</a></li>
+                            <li><a href="#"><i class="icon-tag"></i> Baptiste V.</a></li>
+                            <li><a href="#"><i class="icon-tag"></i> Jacques V.</a></li>
+                            <li class="nav-header"><g:message code="app.menu.title.personal"/></li>
+                            <li>
+                                <g:link controller="user" action="edit" id="${loggedInUserId}">
+                                    <i class="icon-pencil"></i> <g:message code="app.menu.personal.infos"/>
+                                </g:link>
+                            </li>
+                            <li>
+                                <g:link controller="password" action="edit" id="${loggedInUserId}">
+                                    <i class="icon-pencil"></i> <g:message code="app.menu.personal.password"/>
+                                </g:link>
+                            </li>
+                            <li>
+                                <g:link controller="logout">
+                                    <i class="icon-off"></i> <g:message code="app.menu.personal.logout"/>
+                                </g:link>
+                            </li>
+                            <li>
+                                <div id="deleteUserModal" class="modal hide fade">
+                                    <div class="modal-header">
+                                        <h5><g:message code="default.delete.popup.title"/></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><g:message code="default.delete.popup.message"/></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <g:form>
+                                            <g:hiddenField name="id" value="${loggedInUserId}" />
+                                            <g:actionSubmit controller="user" action="delete" class="btn btn-primary" value="${message(code:'default.button.ok.label')}"/>
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true"><g:message code="default.button.cancel.label"/></button>
+                                        </g:form>
+                                    </div>
+                                </div>
+                                <a href="#deleteUserModal" role="button" data-toggle="modal"><i class="icon-trash"></i> <g:message code="app.menu.personal.delete"/></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span9">
+    </sec:ifLoggedIn>
+                    <g:layoutBody/>
+    <sec:ifLoggedIn>
+                </div>
+            </div>
+
+            <hr>
+
+            <footer>
+                <p>&copy; Wishlist 2012
+                    <%
+                        int startingYear = 2012
+                        String thisYear = new Date().format("yyyy")
+                        if (startingYear < (thisYear as int)) {
+                            print(" - " + thisYear)
+                        }
+                    %>
+                    / <a href="https://github.com/pvardanega/wishlist">github</a>
+                    / <a href="https://twitter.com/pvardanega">@pvardanega</a>
+                </p>
+            </footer>
+
+        </div>
+
+    </sec:ifLoggedIn>
 
     <r:layoutResources/>
 
