@@ -5,6 +5,7 @@
 	<title><g:message code="springSecurity.login.title"/></title>
     <r:require modules="application"/>
     <r:require modules="bootstrap"/>
+    <r:layoutResources/>
 </head>
 
 <body style="background-color: #f5f5f5;">

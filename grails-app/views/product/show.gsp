@@ -32,6 +32,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${productInstance?.owner}">
+				<li class="fieldcontain">
+					<span id="owner-label" class="property-label"><g:message code="product.owner.label" default="Owner" /></span>
+					
+						<span class="property-value" aria-labelledby="owner-label"><g:link controller="user" action="show" id="${productInstance?.owner?.id}">${productInstance?.owner?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

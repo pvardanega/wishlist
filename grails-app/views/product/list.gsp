@@ -11,7 +11,18 @@
         <div class="alert alert-success" >${flash.message}</div>
     </g:if>
 
-    MA LISTE
+    <strong><g:message code="product.list.count" args="${[productsTotal, productsTotal > 1 ? "s" : ""]}"/></strong>
+    <span class="pull-right">
+        <g:link controller="product" action="create">
+            <i class="icon-plus"></i> <g:message code="product.add"/>
+        </g:link>
+    </span>
+
+    <ul>
+    <g:each in="${products}" var="product">
+        <li>${product.title}</li>
+    </g:each>
+    </ul>
 
 </body>
 </html>

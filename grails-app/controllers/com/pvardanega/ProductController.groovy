@@ -11,8 +11,9 @@ class ProductController {
     }
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [productInstanceList: Product.list(params), productInstanceTotal: Product.count()]
+        User user = User.findById(params.userId)
+        def products = Product.findAllByOwner(user)
+        [products: products, productsTotal: products.size()]
     }
 
     def create() {
@@ -27,7 +28,7 @@ class ProductController {
         }
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'product.label', default: 'Product'), productInstance.id])
-        redirect(action: "show", id: productInstance.id)
+        redirect(action: "list", params: [userId: productInstance.owner.id])
     }
 
     def show() {

@@ -51,4 +51,8 @@ class User {
     def isAdmin() {
         getAuthorities().contains(Role.findByAuthority("ROLE_ADMIN"))
     }
+
+    String toString() {
+        username
+    }
 }

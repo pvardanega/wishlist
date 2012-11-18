@@ -4,9 +4,10 @@ class Product {
 
     String title
 
-    static hasMany = [users: User]
+    static belongsTo = [owner: User]
 
     static constraints = {
         title blank: false
+        owner nullable: false
     }
 }
