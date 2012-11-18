@@ -1,3 +1,4 @@
+<%@ page import="com.pvardanega.User" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,10 +32,24 @@
                     <div class="well sidebar-nav">
                         <ul class="nav nav-list">
                             <li class="nav-header"><g:message code="app.menu.title.lists"/></li>
-                            <li><a href="#"><i class="icon-tag"></i> <g:message code="app.menu.lists.mine"/></a></li>
-                            <li><a href="#"><i class="icon-tag"></i> Amira L.</a></li>
-                            <li><a href="#"><i class="icon-tag"></i> Baptiste V.</a></li>
-                            <li><a href="#"><i class="icon-tag"></i> Jacques V.</a></li>
+                            <li>
+                                <g:link controller="product" action="list" params="${[userId: loggedInUserId]}">
+                                    <i class="icon-tag"></i> <g:message code="app.menu.lists.mine"/>
+                                </g:link>
+                            </li>
+                            <%
+                                // TODO : bien moche !
+                                def users = User.findByIdNotEqual(loggedInUserId.toLong())
+                                users.each {
+                            %>
+                            <li>
+                                <g:link controller="product" action="list" params="${[userId: it.id]}">
+                                    <i class="icon-tag"></i> ${it.username}
+                                </g:link>
+                            </li>
+                            <%
+                                }
+                            %>
                             <li class="nav-header"><g:message code="app.menu.title.personal"/></li>
                             <li>
                                 <g:link controller="user" action="edit" id="${loggedInUserId}">
