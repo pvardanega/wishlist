@@ -18,7 +18,7 @@
         <div class="input-append">
             <g:textField name="title" value="${productInstance.title}" class="span12" maxlength="256"
                          placeholder="${message(code: 'product.title.placeholder')}"/>
-            <button class="btn" type="button">Trouver une image</button>
+            <button class="btn" type="button"><i class="icon-search"></i> Trouver une image</button>
         </div>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="title">
@@ -68,8 +68,12 @@
     <label for="price" class="control-label"><g:message code="product.price.label"/></label>
     <div class="controls">
         <div class="input-append">
-            <g:textField name="price" value="${productInstance?.price}" class="span5" placeholder="${message(code: 'product.price.placeholder')}" maxlength="7"/>
-            <span class="add-on">€</span>
+            <g:textField name="price"
+                         value="${formatNumber(number: productInstance?.price)}"
+                         class="span5"
+                         placeholder="${message(code: 'product.price.placeholder')}"
+                         maxlength="7" />
+            <span class="add-on"><g:message code="default.currency.symbol"/></span>
         </div>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="price">

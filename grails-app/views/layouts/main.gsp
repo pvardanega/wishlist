@@ -69,10 +69,10 @@
                             <li>
                                 <div id="deleteUserModal" class="modal hide fade">
                                     <div class="modal-header">
-                                        <h5><g:message code="default.delete.popup.title"/></h5>
+                                        <h5><g:message code="user.delete.popup.title"/></h5>
                                     </div>
                                     <div class="modal-body">
-                                        <p><g:message code="default.delete.popup.message"/></p>
+                                        <p><g:message code="user.delete.popup.message"/></p>
                                     </div>
                                     <div class="modal-footer">
                                         <g:form>

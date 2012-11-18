@@ -17,7 +17,9 @@
             <g:render template="form"/>
         </fieldset>
         <fieldset class="form-actions">
-            <button type="submit" name="create" class="btn btn-primary"><i class="icon-pencil icon-white"></i> <g:message code="default.button.create.label"/></button>
+            <button type="submit" name="create" class="btn btn-primary">
+                <i class="icon-pencil icon-white"></i> <g:message code="default.button.create.label"/>
+            </button>
         </fieldset>
     </g:form>
 

@@ -4,6 +4,8 @@ import org.springframework.dao.DataIntegrityViolationException
 
 class ProductController {
 
+    def springSecurityService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index() {
@@ -11,9 +13,10 @@ class ProductController {
     }
 
     def list() {
+        User loggedInUser = springSecurityService.currentUser as User
         User user = User.findById(params.userId)
         def products = Product.findAllByOwner(user)
-        [products: products, productsTotal: products.size()]
+        [products: products, productsTotal: products.size(), myList: loggedInUser == user]
     }
 
     def create() {
@@ -27,7 +30,7 @@ class ProductController {
             return
         }
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'product.label', default: 'Product'), productInstance.id])
+		flash.message = message(code: 'default.created.message')
         redirect(action: "list", params: [userId: productInstance.owner.id])
     }
 
@@ -79,22 +82,22 @@ class ProductController {
             return
         }
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'product.label', default: 'Product'), productInstance.id])
-        redirect(action: "show", id: productInstance.id)
+		flash.message = message(code: 'default.updated.message')
+        redirect(action: "list", params: [userId: productInstance.owner.id])
     }
 
     def delete() {
         def productInstance = Product.get(params.id)
         if (!productInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])
-            redirect(action: "list")
+            redirect(action: "list", params: [userId: productInstance.owner.id])
             return
         }
 
         try {
             productInstance.delete(flush: true)
 			flash.message = message(code: 'default.deleted.message', args: [message(code: 'product.label', default: 'Product'), params.id])
-            redirect(action: "list")
+            redirect(action: "list", params: [userId: productInstance.owner.id])
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'product.label', default: 'Product'), params.id])

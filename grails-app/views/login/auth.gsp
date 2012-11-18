@@ -15,7 +15,7 @@
             <div class="alert alert-error">${flash.message}</div>
         </g:if>
 
-        <form class="form-signin" action='${postUrl}' method='POST' autocomplete='off'>
+        <form class="form-signin" action='${postUrl}' method='POST' autocomplete='off' name="loginForm">
             <h2 class="form-signin-heading"><g:message code="springSecurity.login.title"/></h2>
             <input type='text' class='input-block-level' name='j_username' id='username' placeholder="${message(code: "springSecurity.login.username")}"/>
             <input type='password' class='input-block-level' name='j_password' id='password' placeholder="${message(code: "springSecurity.login.password")}"/>

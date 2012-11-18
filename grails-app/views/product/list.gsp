@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'product.label')}" />
@@ -18,11 +18,60 @@
         </g:link>
     </span>
 
-    <ul>
+    <br/>
+
     <g:each in="${products}" var="product">
-        <li>${product.title}</li>
+
+        <div class="media well">
+            <a class="pull-left" href="#">
+                <img src="http://images.mortderire.com/images/chat-dans-le-bocal.jpg" width="70" class="img-rounded"/>
+            </a>
+            <div class="media-body">
+                <g:if test="${product.price > 0}">
+                    <span class="pull-right">
+                        <strong>
+                            <g:formatNumber number="${product.price}" type="currency" currencyCode="${message(code: 'default.currency')}"/>
+                        </strong>
+                    </span>
+                </g:if>
+                <h4 class="media-heading">
+                    ${product.title}
+                </h4>
+                <p>
+                    <span class="pull-right">
+                        <g:if test="${product.link}">
+                            <a href="${product.link}" title="${message(code: 'product.see')}" target="_blank"><i class="icon-search"></i></a>
+                        </g:if>
+                        <g:if test="${myList}">
+                            <g:link controller="product" action="edit" id="${product.id}" title="${message(code: 'default.button.edit.label')}">
+                                <i class ="icon-edit"></i>
+                            </g:link>
+                            <a href="#deleteProduct${product.id}" role="button" data-toggle="modal" title="${message(code:
+                                    'default.button.delete.label')}"><i class="icon-trash"></i></a>
+                        </g:if>
+                        <a href="#" title="${message(code: 'product.assign')}"><i class="icon-shopping-cart"></i></a>
+                    </span>
+                    ${product.description}
+                </p>
+            </div>
+        </div>
+
+        <div id="deleteProduct${product.id}" class="modal hide fade">
+            <div class="modal-header">
+                <h5><g:message code="product.delete.popup.title"/></h5>
+            </div>
+            <div class="modal-body">
+                <p><g:message code="product.delete.popup.message"/></p>
+            </div>
+            <div class="modal-footer">
+                <g:form>
+                    <g:hiddenField name="id" value="${product.id}" />
+                    <g:actionSubmit controller="user" action="delete" class="btn btn-primary" value="${message(code:'default.button.ok.label')}"/>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true"><g:message code="default.button.cancel.label"/></button>
+                </g:form>
+            </div>
+        </div>
     </g:each>
-    </ul>
 
 </body>
 </html>
