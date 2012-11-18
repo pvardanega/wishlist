@@ -40,7 +40,11 @@
                                     <i class="icon-pencil"></i> <g:message code="app.menu.personal.infos"/>
                                 </g:link>
                             </li>
-                            <li><a href="#"><i class="icon-pencil"></i> <g:message code="app.menu.personal.password"/></a></li>
+                            <li>
+                                <g:link controller="password" action="edit" id="${loggedInUserId}">
+                                    <i class="icon-pencil"></i> <g:message code="app.menu.personal.password"/>
+                                </g:link>
+                            </li>
                             <li><g:link controller="logout"><i class="icon-off"></i> <g:message
                                     code="app.menu.personal.logout"/></g:link></li>
                             <li><a href="#"><i class="icon-trash"></i> <g:message code="app.menu.personal.delete"/></a></li>
