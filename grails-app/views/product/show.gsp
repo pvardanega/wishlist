@@ -41,6 +41,42 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${productInstance?.description}">
+				<li class="fieldcontain">
+					<span id="description-label" class="property-label"><g:message code="product.description.label" default="Description" /></span>
+					
+						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${productInstance}" field="description"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${productInstance?.link}">
+				<li class="fieldcontain">
+					<span id="link-label" class="property-label"><g:message code="product.link.label" default="Link" /></span>
+					
+						<span class="property-value" aria-labelledby="link-label"><g:fieldValue bean="${productInstance}" field="link"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${productInstance?.pictureUrl}">
+				<li class="fieldcontain">
+					<span id="pictureUrl-label" class="property-label"><g:message code="product.pictureUrl.label" default="Picture Url" /></span>
+					
+						<span class="property-value" aria-labelledby="pictureUrl-label"><g:fieldValue bean="${productInstance}" field="pictureUrl"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${productInstance?.price}">
+				<li class="fieldcontain">
+					<span id="price-label" class="property-label"><g:message code="product.price.label" default="Price" /></span>
+					
+						<span class="property-value" aria-labelledby="price-label"><g:fieldValue bean="${productInstance}" field="price"/></span>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
