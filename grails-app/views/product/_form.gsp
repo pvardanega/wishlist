@@ -2,8 +2,7 @@
 
 <div id="picturediv" class="control-group pull ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')} ${productInstance?.pictureUrl ? 'visible' : 'unvisible'}">
     <div class="controls">
-        %{--<img src="${productInstance.pictureUrl}" width="70" class="img-polaroid"/>--}%
-        <img src="http://images.mortderire.com/images/chat-dans-le-bocal.jpg" width="70" class="img-polaroid"/>
+        <img id="picture" src="${productInstance?.pictureUrl}" width="70" class="img-polaroid"/>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="pictureUrl">
                 <g:message error="${it}"/>
@@ -15,11 +14,8 @@
 <div class="control-group ${hasErrors(bean: productInstance, field: 'title', 'error')}">
     <label for="title" class="control-label"><g:message code="product.title.label"/></label>
     <div class="controls">
-        <div class="input-append">
-            <g:textField name="title" value="${productInstance.title}" class="span12" maxlength="256"
-                         placeholder="${message(code: 'product.title.placeholder')}"/>
-            <button class="btn" type="button"><i class="icon-search"></i> Trouver une image</button>
-        </div>
+        <g:textField name="title" value="${productInstance.title}" class="span8" maxlength="256"
+                     placeholder="${message(code: 'product.title.placeholder')}"/>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="title">
                 <g:message error="${it}"/>
@@ -37,6 +33,30 @@
                 <g:message error="${it}"/>
             </g:eachError>
         </span>
+    </div>
+</div>
+
+<div class="control-group">
+    <div class="controls">
+        <a href="#searchPicture" role="button" data-toggle="modal" title="${message(code:
+            'default.button.delete.label')}" class="btn"><i class="icon-search"></i> Chercher une image</a>
+        <g:hiddenField id="pictureUrl" name="pictureUrl" value="${productInstance?.pictureUrl}" />
+    </div>
+
+    <div id="searchPicture" class="modal hide fade">
+        <div class="modal-header">
+            <h5><g:message code="product.image.search.label"/></h5>
+            <div class="input-append">
+                <input class="span12" id="searchQuery" type="text">
+                <button id="btnSearch" class="btn" type="button"><g:message code="product.image.search"/></button>
+            </div>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true"><g:message code="default.button.ok.label"/></button>
+            <button type="button" id="cancel" class="btn" data-dismiss="modal" aria-hidden="true"><g:message code="default.button.cancel.label"/></button>
+        </div>
     </div>
 </div>
 
@@ -64,18 +84,6 @@
     </div>
 </div>
 
-<div class="control-group ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')}">
-    <label for="pictureUrl" class="control-label"><g:message code="product.picture.label"/></label>
-    <div class="controls">
-        <g:textField id="picture" name="picture" value="${productInstance?.pictureUrl}" class="span8"/>
-        <span class='help-inline'>
-            <g:eachError bean="${productInstance}" field="pictureUrl">
-                <g:message error="${it}"/>
-            </g:eachError>
-        </span>
-    </div>
-</div>
-
 <div class="control-group ${hasErrors(bean: productInstance, field: 'price', 'error')}">
     <label for="price" class="control-label"><g:message code="product.price.label"/></label>
     <div class="controls">
@@ -95,16 +103,47 @@
     </div>
 </div>
 
-<g:hiddenField name="pictureUrl" value="http://images.mortderire.com/images/chat-dans-le-bocal.jpg"/>
-
 <script type="text/javascript">
+
     $(document).ready(function () {
-        $("#picture").change(function() {
-            if (this.value == "") {
-                $("#picturediv").removeClass("visible").addClass("unvisible");
-            } else {
-                $("#picturediv").removeClass("unvisible").addClass("visible");
+
+        $('body').keypress(function(event) {
+            if ( event.keyCode == 13 ) {
+                if ($('#searchPicture').css("display") == "block") {
+                    event.preventDefault();
+                    $('#btnSearch').click();
+                }
+            }
+        });
+
+        $('#cancel').click(function() {
+            $('#pictureUrl').attr("value", "");
+            $("#picture").attr("src", "");
+            $("#picturediv").removeClass("visible").addClass("unvisible");
+        })
+
+        $('#btnSearch').click(function() {
+            $('#searchQuery').html("");
+            $('.modal-body').html("");
+            var query = 'https://ajax.googleapis.com/ajax/services/search/images?v=1.0&callback=?&start=';
+            var params = "&q=" + $('#searchQuery').attr("value");
+            for (var i = 0 ; i < 12 ; i += 4) {
+                $.getJSON(query + i + params, function(data) {
+                    if (data.responseStatus == 200) {
+                        $.each(data.responseData.results, function() {
+                            $('.modal-body').append("<img src=\"" + this.url + "\" width=\"70\" class=\"img-polaroid\"/> ");
+                        })
+                        $('.modal-body img').click(function() {
+                            $('#pictureUrl').attr("value", this.getAttribute("src"));
+                            $("#picture").attr("src", this.getAttribute("src"));
+                            $("#picturediv").removeClass("unvisible").addClass("visible");
+                        });
+                    } else {
+                        $('.modal-body').html("Erreur");
+                    }
+                });
             }
         });
     });
+
 </script>
