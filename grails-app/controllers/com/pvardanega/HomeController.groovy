@@ -9,11 +9,6 @@ class HomeController {
 
     def index() {
         User loggedInUser = springSecurityService.currentUser as User
-
-        if (loggedInUser.isAdmin()) {
-            redirect controller: 'user'
-        } else {
-            redirect controller: 'user', action: 'show', id: loggedInUser.id
-        }
+        redirect controller: 'user', action: 'show', id: loggedInUser.id
     }
 }
