@@ -5,6 +5,7 @@
     <title><g:layoutTitle/></title>
     <r:require modules="bootstrap"/>
     <r:require modules="application"/>
+    <r:layoutResources/>
 </head>
 <body>
 
@@ -45,12 +46,32 @@
                                     <i class="icon-pencil"></i> <g:message code="app.menu.personal.password"/>
                                 </g:link>
                             </li>
-                            <li><g:link controller="logout"><i class="icon-off"></i> <g:message
-                                    code="app.menu.personal.logout"/></g:link></li>
-                            <li><a href="#"><i class="icon-trash"></i> <g:message code="app.menu.personal.delete"/></a></li>
+                            <li>
+                                <g:link controller="logout">
+                                    <i class="icon-off"></i> <g:message code="app.menu.personal.logout"/>
+                                </g:link>
+                            </li>
+                            <li>
+                                <div id="deleteUserModal" class="modal hide fade">
+                                    <div class="modal-header">
+                                        <h5><g:message code="default.delete.popup.title"/></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><g:message code="default.delete.popup.message"/></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <g:form>
+                                            <g:hiddenField name="id" value="${loggedInUserId}" />
+                                            <g:actionSubmit controller="user" action="delete" class="btn btn-primary" value="${message(code:'default.button.ok.label')}"/>
+                                            <button class="btn" data-dismiss="modal" aria-hidden="true"><g:message code="default.button.cancel.label"/></button>
+                                        </g:form>
+                                    </div>
+                                </div>
+                                <a href="#deleteUserModal" role="button" data-toggle="modal"><i class="icon-trash"></i> <g:message code="app.menu.personal.delete"/></a>
+                            </li>
                         </ul>
-                    </div><!--/.well -->
-                </div><!--/span-->
+                    </div>
+                </div>
                 <div class="span9">
     </sec:ifLoggedIn>
                     <g:layoutBody/>
