@@ -34,17 +34,6 @@ class ProductController {
         redirect(action: "list", params: [userId: productInstance.owner.id])
     }
 
-    def show() {
-        def productInstance = Product.get(params.id)
-        if (!productInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [productInstance: productInstance]
-    }
-
     def edit() {
         def productInstance = Product.get(params.id)
         if (!productInstance) {

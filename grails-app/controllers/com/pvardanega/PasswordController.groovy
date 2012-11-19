@@ -5,9 +5,12 @@ import grails.plugins.springsecurity.Secured
 @Secured(['IS_AUTHENTICATED_FULLY'])
 class PasswordController {
 
+    def springSecurityService
+
     static allowedMethods = [update: "POST"]
 
     def edit() {
+        User loggedInUser = springSecurityService.currentUser as User
         def userInstance = User.get(params.id)
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
@@ -15,11 +18,20 @@ class PasswordController {
             return
         }
 
-        [userInstance: userInstance]
+        if (loggedInUser.isAdmin() || loggedInUser == userInstance) {
+            [userInstance: userInstance]
+        } else {
+            actionNotAllowed(loggedInUser)
+        }
     }
 
     def update() {
+        User loggedInUser = springSecurityService.currentUser as User
         def userInstance = User.get(params.id)
+
+        if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
+            actionNotAllowed(loggedInUser)
+        }
 
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
@@ -54,5 +66,10 @@ class PasswordController {
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect controller: 'product', action: 'list', params: [userId: userInstance.id]
+    }
+
+    def actionNotAllowed(def userInstance) {
+        redirect(controller: 'product', action: 'list', params: [userId: userInstance.id])
+        return
     }
 }

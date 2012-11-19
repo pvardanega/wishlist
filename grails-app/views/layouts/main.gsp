@@ -80,6 +80,19 @@
                                 </div>
                                 <a href="#deleteUserModal" role="button" data-toggle="modal"><i class="icon-trash"></i> <g:message code="app.menu.personal.delete"/></a>
                             </li>
+                            <g:if test="${User.findById(loggedInUserId.toLong()).isAdmin()}">
+                                <li class="nav-header"><g:message code="app.menu.title.admin"/></li>
+                                <li>
+                                    <g:link controller="user" action="list">
+                                        <i class="icon-user"></i> <g:message code="app.menu.admin.list.users"/>
+                                    </g:link>
+                                </li>
+                                <li>
+                                    <g:link controller="user" action="create">
+                                        <i class="icon-plus"></i> <g:message code="app.menu.admin.add.user"/>
+                                    </g:link>
+                                </li>
+                            </g:if>
                         </ul>
                     </div>
                 </div>

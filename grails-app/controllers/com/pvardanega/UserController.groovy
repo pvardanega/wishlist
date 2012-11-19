@@ -30,16 +30,17 @@ class UserController {
         def userInstance = new User(params)
 
         if (params.password != params.confirmation) {
-            flash.message = message(code: 'user.error.password.confirmation.different')
+            userInstance.errors.rejectValue("password", "user.error.password.confirmation.different")
+            userInstance.errors.rejectValue("confirmation", "user.error.password.confirmation.different")
             render(view: "create", model: [userInstance: userInstance])
             return
         }
 
         userInstance.enabled = true
-        userInstance.username = userInstance.firstname?.capitalize() +
-                                " " +
-                                userInstance.lastname?.charAt(0)?.toUpperCase() +
-                                "."
+
+        if (params?.firstname && params?.lastname) {
+            userInstance.username = userInstance?.firstname?.capitalize() + " " + userInstance?.lastname?.charAt(0)?.toUpperCase() + "."
+        }
 
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
@@ -49,23 +50,17 @@ class UserController {
         UserRole.create userInstance, Role.findByAuthority(Role.ROLE_USER), true
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-        redirect(action: "show", id: userInstance.id)
-    }
-
-    @Secured(['ROLE_ADMIN'])
-    def show() {
-        def userInstance = User.get(params.id)
-        if (!userInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        [userInstance: userInstance]
+        redirect(action: "list")
     }
 
     def edit() {
+        User loggedInUser = springSecurityService.currentUser as User
         def userInstance = User.get(params.id)
+
+        if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
+            actionNotAllowed(loggedInUser)
+        }
+
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
@@ -76,7 +71,12 @@ class UserController {
     }
 
     def update() {
+        User loggedInUser = springSecurityService.currentUser as User
         def userInstance = User.get(params.id)
+
+        if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
+            actionNotAllowed(loggedInUser)
+        }
 
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
@@ -96,7 +96,8 @@ class UserController {
         }
 
         if (params.password != params.confirmation) {
-            flash.message = message(code: 'user.error.password.confirmation.different')
+            userInstance.errors.rejectValue("password", "user.error.password.confirmation.different")
+            userInstance.errors.rejectValue("confirmation", "user.error.password.confirmation.different")
             render(view: "edit", model: [userInstance: userInstance])
             return
         }
@@ -112,7 +113,6 @@ class UserController {
             return
         }
 
-        User loggedInUser = springSecurityService.currentUser as User
         if (userInstance.id == loggedInUser.id) {
             springSecurityService.reauthenticate userInstance.email
         }
@@ -121,7 +121,13 @@ class UserController {
     }
 
     def delete() {
+        User loggedInUser = springSecurityService.currentUser as User
         def userInstance = User.get(params.id)
+
+        if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
+            actionNotAllowed(loggedInUser)
+        }
+
         if (!userInstance) {
 			flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
@@ -131,11 +137,24 @@ class UserController {
         try {
             UserRole.removeAll(userInstance)
             userInstance.delete(flush: true)
-            redirect(controller: 'logout')
+            if (params.id == loggedInUser.id) {
+                redirect(controller: 'logout')
+            } else {
+                if (loggedInUser.isAdmin()) {
+                    redirect(action: 'list')
+                } else {
+                    redirect(controller: 'home')
+                }
+            }
         }
         catch (DataIntegrityViolationException e) {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect controller: 'product', action: 'list', params: [userId: userInstance.id]
         }
+    }
+
+    def actionNotAllowed(def userInstance) {
+        redirect(controller: 'product', action: 'list', params: [userId: userInstance.id])
+        return
     }
 }
