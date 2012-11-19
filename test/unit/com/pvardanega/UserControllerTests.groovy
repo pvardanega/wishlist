@@ -134,6 +134,12 @@ class UserControllerTests {
         assert user.save() != null
         params.id = user.id
 
+        User user2 = new User()
+        user2.id = user.id + 1
+        def mock = mockFor(SpringSecurityService)
+        mock.demand.getCurrentUser { -> user2 }
+        controller.springSecurityService = mock.createMock()
+
         controller.update()
 
         assert response.redirectedUrl == "/product/list?userId=$user.id"

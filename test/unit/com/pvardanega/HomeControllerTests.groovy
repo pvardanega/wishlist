@@ -5,9 +5,6 @@ import grails.test.mixin.Mock
 import grails.test.mixin.TestFor
 import org.junit.Test
 
-/**
- * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
- */
 @TestFor(HomeController)
 @Mock(User)
 class HomeControllerTests {
