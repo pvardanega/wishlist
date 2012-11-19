@@ -136,7 +136,7 @@ class UserControllerTests {
 
         controller.update()
 
-        assert response.redirectedUrl == "/user/show/$user.id"
+        assert response.redirectedUrl == "/product/list?userId=$user.id"
         assert flash.message != null
 
         //test outdated version number
