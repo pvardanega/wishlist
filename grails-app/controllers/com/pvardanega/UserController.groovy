@@ -46,7 +46,7 @@ class UserController {
             return
         }
 
-        UserRole.create userInstance, Role.findByAuthority("ROLE_USER"), true
+        UserRole.create userInstance, Role.findByAuthority(Role.ROLE_USER), true
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect(action: "show", id: userInstance.id)
