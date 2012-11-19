@@ -24,18 +24,19 @@ class BootStrap {
                 UserRole.create user, userRole, true
             }
             production {
+                def adminRole
                 if (!Role.findByAuthority(Role.ROLE_ADMIN)) {
-                    def adminRole = new Role(authority: Role.ROLE_ADMIN).save(flush: true)
-                    if (!UserRole.findByRole(adminRole)) {
-                        def adminUser = new User(username: 'admin', email: 'admin@yopmail.com',
-                                firstname: 'firstname', lastname: 'lastname', enabled: true,
-                                password: 'password')
-                        adminUser.save(flush: true)
-                        UserRole.create adminUser, adminRole, true
-                    }
+                    adminRole = new Role(authority: Role.ROLE_ADMIN).save(flush: true)
                 }
                 if (!Role.findByAuthority(Role.ROLE_USER)) {
                     new Role(authority: Role.ROLE_USER).save(flush: true)
+                }
+                if (!UserRole.findByRole(adminRole)) {
+                    def adminUser = new User(username: 'admin', email: 'admin@yopmail.com',
+                            firstname: 'firstname', lastname: 'lastname', enabled: true,
+                            password: 'password')
+                    adminUser.save(flush: true)
+                    UserRole.create adminUser, adminRole, true
                 }
             }
         }
