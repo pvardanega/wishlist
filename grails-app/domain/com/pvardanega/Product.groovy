@@ -12,7 +12,7 @@ class Product {
 
     static constraints = {
         title blank: false, maxSize: 256
-        description blank: false, maxSize: 2048
+        description nullable: true, maxSize: 2048
         pictureUrl nullable: true
         price nullable: true
         link nullable: true
