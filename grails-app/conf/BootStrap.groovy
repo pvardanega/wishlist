@@ -31,6 +31,7 @@ class BootStrap {
                                 firstname: 'firstname', lastname: 'lastname', enabled: true,
                                 password: 'password')
                         adminUser.save(flush: true)
+                        UserRole.create adminUser, adminRole, true
                     }
                 }
                 if (!Role.findByAuthority(Role.ROLE_USER)) {
