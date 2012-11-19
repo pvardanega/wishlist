@@ -37,19 +37,15 @@
                                     <i class="icon-tag"></i> <g:message code="app.menu.lists.mine"/>
                                 </g:link>
                             </li>
-                            <%
-                                // TODO : bien moche !
-                                def users = User.findByIdNotEqual(loggedInUserId.toLong())
-                                users.each {
-                            %>
-                            <li>
-                                <g:link controller="product" action="list" params="${[userId: it.id]}">
-                                    <i class="icon-tag"></i> ${it.username}
-                                </g:link>
-                            </li>
-                            <%
-                                }
-                            %>
+
+                            <g:each in="${User.findAllByIdNotEqual(loggedInUserId.toLong())}" var="user">
+                                <li>
+                                    <g:link controller="product" action="list" params="${[userId: user.id]}">
+                                        <i class="icon-tag"></i> ${user.username}
+                                    </g:link>
+                                </li>
+                            </g:each>
+
                             <li class="nav-header"><g:message code="app.menu.title.personal"/></li>
                             <li>
                                 <g:link controller="user" action="edit" id="${loggedInUserId}">
