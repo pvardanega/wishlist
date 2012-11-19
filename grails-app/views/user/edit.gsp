@@ -47,6 +47,7 @@
                     <g:textField name="email" value="${userInstance.email}" class="span12"/>
                 </div>
                 <span class='help-inline'>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <g:eachError bean="${userInstance}" field="email">
                         <g:message error="${it}"/>
                     </g:eachError>

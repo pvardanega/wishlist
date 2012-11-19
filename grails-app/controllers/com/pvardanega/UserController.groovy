@@ -6,6 +6,8 @@ import org.springframework.dao.DataIntegrityViolationException
 @Secured(['IS_AUTHENTICATED_FULLY'])
 class UserController {
 
+    def springSecurityService
+
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     @Secured(['ROLE_ADMIN'])
@@ -99,7 +101,10 @@ class UserController {
             return
         }
 
-        params.username = userInstance.firstname?.capitalize() + " " + userInstance.lastname?.charAt(0)?.toUpperCase() + "."
+        if (params?.firstname && params?.lastname) {
+            params.username = params?.firstname?.capitalize() + " " + params?.lastname?.charAt(0)?.toUpperCase() + "."
+        }
+
         userInstance.properties = params
 
         if (!userInstance.save(flush: true)) {
@@ -107,6 +112,10 @@ class UserController {
             return
         }
 
+        User loggedInUser = springSecurityService.currentUser as User
+        if (userInstance.id == loggedInUser.id) {
+            springSecurityService.reauthenticate userInstance.email
+        }
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect controller: 'product', action: 'list', params: [userId: userInstance.id]
     }
