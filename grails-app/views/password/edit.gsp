@@ -37,7 +37,6 @@
         </div>
         <fieldset class="form-actions">
             <button type="submit" name="create" class="btn btn-primary"><i class="icon-edit icon-white"></i> <g:message code="default.button.update.label"/></button>
-            <button type="reset" name="cancel" class="btn"><g:message code="default.button.cancel.label"/></button>
         </fieldset>
     </g:form>
 

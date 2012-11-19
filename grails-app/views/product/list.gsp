@@ -23,8 +23,8 @@
     <g:each in="${products}" var="product">
 
         <div class="media well">
-            <a class="pull-left" href="#">
-                <img src="${product?.pictureUrl}" width="70" class="img-rounded"/>
+            <a class="pull-left" href="${product?.pictureUrl}" target="_blank">
+                <img src="${product?.pictureUrl}" width="70" class="img-polaroid"/>
             </a>
             <div class="media-body">
                 <g:if test="${product?.price > 0}">

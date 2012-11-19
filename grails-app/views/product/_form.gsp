@@ -2,7 +2,9 @@
 
 <div id="picturediv" class="control-group pull ${hasErrors(bean: productInstance, field: 'pictureUrl', 'error')} ${productInstance?.pictureUrl ? 'visible' : 'unvisible'}">
     <div class="controls">
-        <img id="picture" src="${productInstance?.pictureUrl}" width="70" class="img-polaroid"/>
+        <a href="${productInstance?.pictureUrl}" id="apicture" target="_blank">
+            <img id="picture" src="${productInstance?.pictureUrl}" width="70" class="img-polaroid"/>
+        </a>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="pictureUrl">
                 <g:message error="${it}"/>
@@ -135,6 +137,7 @@
                         })
                         $('.modal-body img').click(function() {
                             $('#pictureUrl').attr("value", this.getAttribute("src"));
+                            $("#apicture").attr("href", this.getAttribute("src"));
                             $("#picture").attr("src", this.getAttribute("src"));
                             $("#picturediv").removeClass("unvisible").addClass("visible");
                         });
