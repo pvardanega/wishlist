@@ -34,14 +34,14 @@
                             <li class="nav-header"><g:message code="app.menu.title.lists"/></li>
                             <li>
                                 <g:link controller="product" action="list" params="${[userId: loggedInUserId]}">
-                                    <i class="icon-tag"></i> <g:message code="app.menu.lists.mine"/>
+                                    <i class="icon-list-alt"></i> <g:message code="app.menu.lists.mine"/>
                                 </g:link>
                             </li>
 
                             <g:each in="${User.findAllByIdNotEqual(loggedInUserId.toLong())}" var="user">
                                 <li>
                                     <g:link controller="product" action="list" params="${[userId: user.id]}">
-                                        <i class="icon-tag"></i> ${user.username}
+                                        <i class="icon-list-alt"></i> ${user.username}
                                     </g:link>
                                 </li>
                             </g:each>

@@ -16,7 +16,7 @@ class ProductController {
         User loggedInUser = springSecurityService.currentUser as User
         User user = User.findById(params.userId)
         def products = Product.findAllByOwner(user)
-        [products: products, productsTotal: products.size(), myList: loggedInUser == user]
+        [products: products, productsTotal: products.size(), myList: loggedInUser == user, me: loggedInUser]
     }
 
     def create() {
@@ -92,5 +92,35 @@ class ProductController {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'product.label', default: 'Product'), params.id])
             redirect(action: "show", id: params.id)
         }
+    }
+
+    def offerBy() {
+        def product = Product.get(params.id)
+
+        product.offeredBy = springSecurityService.currentUser as User;
+
+        if (!product.save(flush: true)) {
+            flash.message = message(code: 'default.error.message')
+            redirect(action: "list", params: [userId: product.owner.id])
+            return
+        }
+
+        flash.message = message(code: 'default.updated.message')
+        redirect(action: "list", params: [userId: product.owner.id])
+    }
+
+    def release() {
+        def product = Product.get(params.id)
+
+        product.offeredBy = null;
+
+        if (!product.save(flush: true)) {
+            flash.message = message(code: 'default.error.message')
+            redirect(action: "list", params: [userId: product.owner.id])
+            return
+        }
+
+        flash.message = message(code: 'default.updated.message')
+        redirect(action: "list", params: [userId: product.owner.id])
     }
 }

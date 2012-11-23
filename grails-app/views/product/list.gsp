@@ -22,7 +22,7 @@
 
     <g:each in="${products}" var="product">
 
-        <div class="media well">
+        <div class="media well ">
             <g:if test="${product?.pictureUrl}">
                 <a class="pull-left" href="${product?.pictureUrl}" target="_blank">
                     <img src="${product?.pictureUrl}" width="70" class="img-polaroid"/>
@@ -37,6 +37,11 @@
                     </span>
                 </g:if>
                 <h4 class="media-heading">
+                    <g:if test="${!myList && product?.offeredBy}">
+                        <span class="label label-success">
+                            <g:message code="product.reserved" args="${[product?.offeredBy?.username]}"/>
+                        </span>
+                    </g:if>
                     ${product?.title}
                 </h4>
                 <p>
@@ -50,7 +55,14 @@
                             </g:link>
                             <a href="#deleteProduct${product?.id}" role="button" data-toggle="modal" title="${message(code: 'default.button.delete.label')}"><i class="icon-trash"></i></a>
                         </g:if>
-                        <a href="#" title="${message(code: 'product.assign')}"><i class="icon-shopping-cart"></i></a>
+                        <g:if test="${!myList}">
+                            <g:if test="${!product?.offeredBy}">
+                                <g:link controller="product" action="offerBy" id="${product?.id}" title="${message(code: 'product.assign')}"><i class="icon-shopping-cart"></i></g:link>
+                            </g:if>
+                            <g:elseif test="${product?.offeredBy?.equals(me)}">
+                                <g:link controller="product" action="release" id="${product?.id}" title="${message(code: 'product.release')}"><i class="icon-ban-circle"></i></g:link>
+                            </g:elseif>
+                        </g:if>
                     </span>
                     ${product?.description}
                 </p>

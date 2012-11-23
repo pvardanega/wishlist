@@ -8,7 +8,7 @@ class Product {
     String link
     String description
 
-    static belongsTo = [owner: User]
+    static belongsTo = [owner: User, offeredBy: User]
 
     static constraints = {
         title blank: false, maxSize: 256
@@ -17,6 +17,6 @@ class Product {
         price nullable: true
         link nullable: true
         owner nullable: false
-
+        offeredBy nullable: true
     }
 }
