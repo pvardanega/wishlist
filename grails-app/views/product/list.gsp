@@ -43,6 +43,9 @@
                         </span>
                     </g:if>
                     ${product?.title}
+                    <g:if test="${product?.createdBy != product?.owner}">
+                        <small><g:message code="product.created.by" args="${[product?.createdBy]}"/></small>
+                    </g:if>
                 </h4>
                 <p>
                     <span class="pull-right">

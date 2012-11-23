@@ -15,8 +15,14 @@ class ProductController {
     def list() {
         User loggedInUser = springSecurityService.currentUser as User
         User user = User.findById(params.userId)
-        def products = Product.findAllByOwner(user)
-        [products: products, productsTotal: products.size(), myList: loggedInUser == user, me: loggedInUser]
+        def myList = loggedInUser == user
+        def products
+        if (myList) {
+            products = Product.findAllByOwnerAndCreatedBy(user, loggedInUser)
+        } else {
+            products = Product.findAllByOwner(user)
+        }
+        [products: products, productsTotal: products.size(), myList: myList, me: loggedInUser]
     }
 
     def create() {
@@ -25,6 +31,7 @@ class ProductController {
 
     def save() {
         def productInstance = new Product(params)
+        productInstance.createdBy = springSecurityService.currentUser as User;
         if (!productInstance.save(flush: true)) {
             render(view: "create", model: [productInstance: productInstance])
             return
