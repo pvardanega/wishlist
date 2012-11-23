@@ -65,7 +65,7 @@
 <div class="control-group ${hasErrors(bean: productInstance, field: 'owner', 'error')}">
     <label for="owner" class="control-label"><g:message code="product.owner.label"/></label>
     <div class="controls">
-        <g:select id="owner" name="owner.id" from="${com.pvardanega.User.list()}" optionKey="id" required="" value="${productInstance?.owner?.id}" class="many-to-one"/>
+        <g:select id="owner" name="owner.id" from="${com.pvardanega.User.list()}" optionKey="id" required="" value="${sec.loggedInUserInfo(field: 'id')}" class="many-to-one"/>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="owner">
                 <g:message error="${it}"/>
