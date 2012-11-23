@@ -16,11 +16,12 @@ class ProductController {
         User loggedInUser = springSecurityService.currentUser as User
         User user = User.findById(params.userId)
         def myList = loggedInUser == user
+
         def products
         if (myList) {
             products = Product.findAllByOwnerAndCreatedBy(user, loggedInUser)
         } else {
-            products = Product.findAllByOwner(user)
+            products = Product.findAllByOwnerAndCreatedByInList(user, [user, loggedInUser])
         }
         [products: products, productsTotal: products.size(), myList: myList, me: loggedInUser]
     }

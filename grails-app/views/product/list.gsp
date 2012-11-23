@@ -52,7 +52,7 @@
                         <g:if test="${product?.link}">
                             <a href="${product?.link}" title="${message(code: 'product.see')}" target="_blank"><i class="icon-search"></i></a>
                         </g:if>
-                        <g:if test="${myList}">
+                        <g:if test="${myList || product?.createdBy?.equals(me)}">
                             <g:link controller="product" action="edit" id="${product?.id}" title="${message(code: 'default.button.edit.label')}">
                                 <i class ="icon-edit"></i>
                             </g:link>
