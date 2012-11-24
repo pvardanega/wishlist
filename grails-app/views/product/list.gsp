@@ -67,7 +67,7 @@
                             </g:elseif>
                         </g:if>
                     </span>
-                    ${product?.description}
+                    ${product?.description?.replaceAll("\n", "<br/>")}
                 </p>
             </div>
         </div>
