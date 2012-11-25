@@ -8,7 +8,7 @@
 <body>
 
     <g:if test="${flash.message}">
-        <div class="alert alert-success" >${flash.message}</div>
+        <div class="alert alert-${messageType ?: "success"}" >${flash.message}</div>
     </g:if>
 
     <strong><g:message code="product.list.count" args="${[productsTotal, productsTotal > 1 ? "s" : ""]}"/></strong>

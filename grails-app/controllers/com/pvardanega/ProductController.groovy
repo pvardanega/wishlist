@@ -1,7 +1,9 @@
 package com.pvardanega
 
+import grails.plugins.springsecurity.Secured
 import org.springframework.dao.DataIntegrityViolationException
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 class ProductController {
 
     def springSecurityService
@@ -23,7 +25,8 @@ class ProductController {
         } else {
             products = Product.findAllByOwnerAndCreatedByInList(user, [user, loggedInUser])
         }
-        [products: products, productsTotal: products.size(), myList: myList, me: loggedInUser]
+        [products: products, productsTotal: products.size(), myList: myList, me: loggedInUser,
+                messageType: params.messageType]
     }
 
     def create() {
@@ -105,11 +108,17 @@ class ProductController {
     def offerBy() {
         def product = Product.get(params.id)
 
+        if (product.offeredBy) {
+            flash.message = message(code: 'product.already.reserved', args: [product?.offeredBy?.toString()])
+            redirect(action: "list", params: [userId: product.owner.id, messageType: "block"])
+            return
+        }
+
         product.offeredBy = springSecurityService.currentUser as User;
 
         if (!product.save(flush: true)) {
             flash.message = message(code: 'default.error.message')
-            redirect(action: "list", params: [userId: product.owner.id])
+            redirect(action: "list", params: [userId: product.owner.id, messageType: "error"])
             return
         }
 
