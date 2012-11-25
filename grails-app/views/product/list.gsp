@@ -48,27 +48,35 @@
                     </g:if>
                 </h4>
                 <p>
-                    <span class="pull-right">
-                        <g:if test="${product?.link}">
-                            <a href="${product?.link}" title="${message(code: 'product.see')}" target="_blank"><i class="icon-search"></i></a>
-                        </g:if>
-                        <g:if test="${myList || product?.createdBy?.equals(me)}">
-                            <g:link controller="product" action="edit" id="${product?.id}" title="${message(code: 'default.button.edit.label')}">
-                                <i class ="icon-edit"></i>
-                            </g:link>
-                            <a href="#deleteProduct${product?.id}" role="button" data-toggle="modal" title="${message(code: 'default.button.delete.label')}"><i class="icon-trash"></i></a>
-                        </g:if>
-                        <g:if test="${!myList}">
-                            <g:if test="${!product?.offeredBy}">
-                                <g:link controller="product" action="offerBy" id="${product?.id}" title="${message(code: 'product.assign')}"><i class="icon-shopping-cart"></i></g:link>
-                            </g:if>
-                            <g:elseif test="${product?.offeredBy?.equals(me)}">
-                                <g:link controller="product" action="release" id="${product?.id}" title="${message(code: 'product.release')}"><i class="icon-ban-circle"></i></g:link>
-                            </g:elseif>
-                        </g:if>
-                    </span>
                     ${product?.description?.replaceAll("\n", "<br/>")}
                 </p>
+            </div>
+            <div class="pull-right btn-group">
+                <g:if test="${myList || product?.createdBy?.equals(me)}">
+                    <g:link controller="product" action="edit" id="${product?.id}" class="btn btn-primary">
+                        <i class ="icon-edit icon-white"></i> <g:message code="default.button.edit.label"/>
+                    </g:link>
+                    <a href="#deleteProduct${product?.id}" role="button" data-toggle="modal" class="btn btn-danger">
+                        <i class="icon-trash icon-white"></i> <g:message code="default.button.delete.label"/>
+                    </a>
+                </g:if>
+                <g:if test="${product?.link}">
+                    <a href="${product?.link}" target="_blank" class="btn">
+                        <i class="icon-search"></i> <g:message code="product.see"/>
+                    </a>
+                </g:if>
+                <g:if test="${!myList}">
+                    <g:if test="${!product?.offeredBy}">
+                        <g:link controller="product" action="offerBy" id="${product?.id}" class="btn btn-success">
+                            <i class="icon-shopping-cart icon-white"></i> <g:message code="product.assign"/>
+                        </g:link>
+                    </g:if>
+                    <g:elseif test="${product?.offeredBy?.equals(me)}">
+                        <g:link controller="product" action="release" id="${product?.id}" class="btn btn-info">
+                            <i class="icon-ban-circle icon-white"></i> <g:message code="product.release"/>
+                        </g:link>
+                    </g:elseif>
+                </g:if>
             </div>
         </div>
 
