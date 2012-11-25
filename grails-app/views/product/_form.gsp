@@ -78,12 +78,16 @@
 <div class="control-group ${hasErrors(bean: productInstance, field: 'link', 'error')}">
     <label for="link" class="control-label"><g:message code="product.link.label"/></label>
     <div class="controls">
-        <g:textField name="link" value="${productInstance?.link}" class="span8" placeholder="http://www.google.fr"/>
+        <g:textField id="linkURL" name="link" value="${productInstance?.link}" class="span8"
+                     placeholder="http://www.google.fr"/>
         <span class='help-inline'>
             <g:eachError bean="${productInstance}" field="link">
                 <g:message error="${it}"/>
             </g:eachError>
         </span>
+        <a href="${productInstance?.link}" id="link" target="_blank" class="${productInstance?.link ? "visible" : "unvisible"}">
+            <i class="icon-search"></i> <g:message code="product.see"/>
+        </a>
     </div>
 </div>
 
@@ -123,13 +127,14 @@
             $('#pictureUrl').attr("value", "");
             $("#picture").attr("src", "");
             $("#picturediv").removeClass("visible").addClass("unvisible");
-        })
+        });
 
         $('#btnSearch').click(function() {
-            $('#searchQuery').html("");
+            var searchQuery = $('#searchQuery');
+            searchQuery.html("");
             $('.modal-body').html("");
             var query = 'https://ajax.googleapis.com/ajax/services/search/images?v=1.0&callback=?&start=';
-            var params = "&q=" + $('#searchQuery').attr("value");
+            var params = "&q=" + searchQuery.attr("value");
             for (var i = 0 ; i < 12 ; i += 4) {
                 $.getJSON(query + i + params, function(data) {
                     if (data.responseStatus == 200) {
@@ -146,6 +151,17 @@
                         $('.modal-body').html("Erreur");
                     }
                 });
+            }
+        });
+
+        $('#linkURL').change(function () {
+            var linkURL = $('#linkURL');
+            var link = $('#link');
+            link.attr("href", linkURL.attr("value"));
+            if (linkURL.attr("value") == "") {
+                link.removeClass("visible").addClass("unvisible");
+            } else {
+                link.removeClass("unvisible").addClass("visible");
             }
         });
     });

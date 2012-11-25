@@ -60,12 +60,12 @@
                         <i class="icon-trash icon-white"></i> <g:message code="default.button.delete.label"/>
                     </a>
                 </g:if>
-                <g:if test="${product?.link}">
-                    <a href="${product?.link}" target="_blank" class="btn">
-                        <i class="icon-search"></i> <g:message code="product.see"/>
-                    </a>
-                </g:if>
                 <g:if test="${!myList}">
+                    <g:if test="${product?.link}">
+                        <a href="${product?.link}" target="_blank" class="btn">
+                            <i class="icon-search"></i> <g:message code="product.see"/>
+                        </a>
+                    </g:if>
                     <g:if test="${!product?.offeredBy}">
                         <g:link controller="product" action="offerBy" id="${product?.id}" class="btn btn-success">
                             <i class="icon-shopping-cart icon-white"></i> <g:message code="product.assign"/>
