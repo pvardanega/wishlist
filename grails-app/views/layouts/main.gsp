@@ -11,7 +11,7 @@
 <body>
 
     <sec:ifLoggedIn>
-        <g:set var="loggedInUserId" value="${sec.loggedInUserInfo(field: 'id')}"/>
+        <g:set var="loggedInUserId" value="${sec.loggedInUserInfo(field: 'id').toLong()}"/>
 
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="navbar-inner">
@@ -31,15 +31,18 @@
                 <div class="span3">
                     <div class="well sidebar-nav">
                         <ul class="nav nav-list">
+                            <g:set var="userIdToShow"
+                                   value="${request.parameterMap.get("userId") == null ? null :
+                                            request.parameterMap.get("userId")[0]?.toLong()}"/>
                             <li class="nav-header"><g:message code="app.menu.title.lists"/></li>
-                            <li>
+                            <li class="${userIdToShow == loggedInUserId ? "active" : ""}">
                                 <g:link controller="product" action="list" params="${[userId: loggedInUserId]}">
                                     <i class="icon-list-alt"></i> <g:message code="app.menu.lists.mine"/>
                                 </g:link>
                             </li>
 
                             <g:each in="${User.findAllByIdNotEqual(loggedInUserId.toLong())}" var="user">
-                                <li>
+                                <li class="${userIdToShow == user.id ? "active" : ""}">
                                     <g:link controller="product" action="list" params="${[userId: user.id]}">
                                         <i class="icon-list-alt"></i> ${user.username}
                                     </g:link>
@@ -47,12 +50,14 @@
                             </g:each>
 
                             <li class="nav-header"><g:message code="app.menu.title.personal"/></li>
-                            <li>
+                            <li class="${request.requestURI.contains(createLink(controller: "user", action:
+                                    "edit", id: loggedInUserId)) ? "active" : ""}">
                                 <g:link controller="user" action="edit" id="${loggedInUserId}">
                                     <i class="icon-pencil"></i> <g:message code="app.menu.personal.infos"/>
                                 </g:link>
                             </li>
-                            <li>
+                            <li class="${request.requestURL.contains(createLink(controller: "password", action:
+                                            "edit", id: loggedInUserId)) ? "active":""}">
                                 <g:link controller="password" action="edit" id="${loggedInUserId}">
                                     <i class="icon-pencil"></i> <g:message code="app.menu.personal.password"/>
                                 </g:link>
@@ -82,12 +87,12 @@
                             </li>
                             <g:if test="${User.findById(loggedInUserId.toLong()).isAdmin()}">
                                 <li class="nav-header"><g:message code="app.menu.title.admin"/></li>
-                                <li>
+                                <li class="${request.requestURL.contains(createLink(controller: "user", action:"list")) ? "active":""}">
                                     <g:link controller="user" action="list">
                                         <i class="icon-user"></i> <g:message code="app.menu.admin.list.users"/>
                                     </g:link>
                                 </li>
-                                <li>
+                                <li class="${request.requestURL.contains(createLink(controller: "user", action:"create")) ? "active":""}">
                                     <g:link controller="user" action="create">
                                         <i class="icon-plus"></i> <g:message code="app.menu.admin.add.user"/>
                                     </g:link>
