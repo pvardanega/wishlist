@@ -155,12 +155,15 @@
         });
 
         $('#linkURL').change(function () {
-            var linkURL = $('#linkURL');
+            var linkURL = $('#linkURL').attr("value");
             var link = $('#link');
-            link.attr("href", linkURL.attr("value"));
-            if (linkURL.attr("value") == "") {
+            if (linkURL == "") {
                 link.removeClass("visible").addClass("unvisible");
             } else {
+                if (linkURL.substring(0, 7) != "http://" && linkURL.substring(0, 8) != "https://") {
+                    linkURL = "http://" + linkURL;
+                }
+                link.attr("href", linkURL);
                 link.removeClass("unvisible").addClass("visible");
             }
         });
