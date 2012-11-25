@@ -36,7 +36,7 @@ class ProductController {
     def save() {
         def productInstance = new Product(params)
         productInstance.createdBy = springSecurityService.currentUser as User;
-        if (!productInstance?.link?.startsWith("http://") || !productInstance?.link?.startsWith("https://")) {
+        if (!productInstance?.link?.startsWith("http://") && !productInstance?.link?.startsWith("https://")) {
             productInstance?.link = "http://" + productInstance?.link
         }
         if (!productInstance.save(flush: true)) {
