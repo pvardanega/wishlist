@@ -22,9 +22,9 @@ environments {
             dbCreate = "create-drop"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-            url = "jdbc:mysql://ec2-23-21-211-172.compute-1.amazonaws.com:3306/wishlist-db-test"
-            username = "wish-test"
-            password = "list"
+            url = System.getProperty("db.url")
+            username = System.getProperty("db.username")
+            password = System.getProperty("db.password")
         }
     }
     production {
@@ -32,9 +32,9 @@ environments {
             dbCreate = "update"
             driverClassName = "com.mysql.jdbc.Driver"
             dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-            url = "jdbc:mysql://ec2-23-21-211-172.compute-1.amazonaws.com:3306/wishlist-db"
-            username = "wish"
-            password = "list"
+            url = System.getProperty("db.url")
+            username = System.getProperty("db.username")
+            password = System.getProperty("db.password")
             pooled = true
             properties {
                maxActive = -1
