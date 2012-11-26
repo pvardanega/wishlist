@@ -3,6 +3,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title><g:message code="springSecurity.login.title"/></title>
+    <link rel="icon" href="${request.contextPath + '/static/images/favicon.ico'}" type="image/x-icon" />
+    <link rel="shortcut icon" href="${request.contextPath + '/static/images/favicon.ico'}" type="image/x-icon" />
     <r:require modules="application"/>
     <r:require modules="bootstrap"/>
     <r:layoutResources/>
