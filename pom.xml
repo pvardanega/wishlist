@@ -58,6 +58,19 @@
             <artifactId>jersey-bean-validation</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Dependency injection -->
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-spring3</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
 
         <!-- Test -->
         <dependency>
