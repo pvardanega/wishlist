@@ -73,6 +73,18 @@
             <version>${jersey.version}</version>
         </dependency>
 
+        <!-- Jongo -->
+        <dependency>
+            <groupId>org.jongo</groupId>
+            <artifactId>jongo</artifactId>
+            <version>0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.11.3</version>
+        </dependency>
+
         <!-- Logging -->
         <dependency>
             <groupId>commons-logging</groupId>
