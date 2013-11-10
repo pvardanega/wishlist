@@ -1,6 +1,6 @@
 'use strict';
 
-var module = angular.module('laps', [])
+var module = angular.module('wishlist', [])
     .config(function ($routeProvider, $httpProvider) {
         $httpProvider.defaults.headers.common = {'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json', 'Content-Type': 'application/json'};
         

@@ -1,9 +1,9 @@
-package com._2laps.api.config;
+package net.pvardanega.wishlist.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan("com._2laps.api.business")
+@ComponentScan("net.pvardanega.wishlist.business")
 public class SpringConfig {
 }

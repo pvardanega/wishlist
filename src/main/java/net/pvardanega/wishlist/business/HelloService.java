@@ -1,4 +1,4 @@
-package com._2laps.api.business;
+package net.pvardanega.wishlist.business;
 
 import org.springframework.stereotype.Service;
 

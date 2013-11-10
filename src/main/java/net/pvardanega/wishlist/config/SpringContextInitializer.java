@@ -1,4 +1,4 @@
-package com._2laps.api.config;
+package net.pvardanega.wishlist.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ public class SpringContextInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        servletContext.setInitParameter("contextConfigLocation", "com._2laps.api.config");
+        servletContext.setInitParameter("contextConfigLocation", "net.pvardanega.wishlist.config");
         WebApplicationContext rootAppContext = new AnnotationConfigWebApplicationContext();
         if (rootAppContext != null) {
             servletContext.addListener(new ContextLoaderListener(rootAppContext));

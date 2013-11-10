@@ -1,4 +1,4 @@
-package com._2laps.api.business;
+package net.pvardanega.wishlist.business;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
