@@ -6,8 +6,8 @@ var module = angular.module('wishlist', [])
         
         $routeProvider
             .when('/', {
-                templateUrl: 'views/default/welcome.html',
-                controller: 'DefaultCtrl'
+                templateUrl: 'views/wish/list.html',
+                controller: 'WishListCtrl'
             })
             .otherwise({
                 redirectTo: '/'
