@@ -1,5 +1,0 @@
-host:     'http://pjredmine.herokuapp.com/'
-github:   'pvardanega/wishlist'
-statuses:
-  # Should be the database id of the closed / deployed status in Redmine
-  reviewed: 5
