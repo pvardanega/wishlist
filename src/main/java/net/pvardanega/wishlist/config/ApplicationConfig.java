@@ -8,7 +8,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class ApplicationConfig extends ResourceConfig {
 
     public ApplicationConfig() {
-        packages("net.pvardanega.wishlist.business");
+        packages("net.pvardanega.wishlist.business", "net.pvardanega.wishlist.common");
         register(JacksonFeature.class);
     }
 }

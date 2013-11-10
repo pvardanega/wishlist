@@ -11,11 +11,7 @@ public class HealthCheckDao {
     private MongoCollection usersCollection;
 
     public boolean isItWorking() {
-        try {
-            usersCollection.count();
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        usersCollection.count();
+        return true;
     }
 }
