@@ -12,17 +12,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Wish {
 
     private final String title;
-    private final String description;
+    private final String link;
+    private final String imageLink;
     private final Double price;
 
     @JsonCreator
     public Wish(
             @JsonProperty("title") String title,
-            @JsonProperty("description") String description,
+            @JsonProperty("link") String link,
+            @JsonProperty("imageLink") String imageLink,
             @JsonProperty("price") Double price
     ) {
         this.title = title;
-        this.description = description;
+        this.link = link;
+        this.imageLink = imageLink;
         this.price = price;
     }
 }
