@@ -2,6 +2,7 @@ package net.pvardanega.wishlist.config;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import java.net.UnknownHostException;
 import net.pvardanega.wishlist.common.MongoUnreachableException;
 import org.jongo.Jongo;
@@ -17,8 +18,10 @@ public class SpringConfig {
     @Bean(name = "usersCollection")
     public MongoCollection getUsersCollection() {
         DB db = null;
+        MongoClientURI mongohq_url = new MongoClientURI(System.getProperty("MONGOHQ_URL"));
         try {
-            db = new MongoClient().getDB("wishlist");
+            db = new MongoClient(mongohq_url).getDB(mongohq_url.getDatabase());
+            db.authenticate(mongohq_url.getUsername(), mongohq_url.getPassword());
         } catch (UnknownHostException e) {
             throw new MongoUnreachableException(e);
         }
