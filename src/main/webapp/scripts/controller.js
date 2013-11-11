@@ -1,11 +1,10 @@
 'use strict';
 
-module.controller('WishListCtrl', function ($scope, $http) {
+module.controller('UsersCtrl', function ($scope, $http) {
 
-    $http.get('/api/users/1/wishlist')
+    $http.get('/api/users/1')
         .success(function(data) {
-            console.log(data);
-            $scope.wishlist = data;
+            $scope.wishs = data.wishs;
         })
     ;
 });
