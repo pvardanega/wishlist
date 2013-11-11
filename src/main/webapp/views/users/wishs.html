@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4" ng-repeat="wish in wishs">
+    <div class="col-md-4" ng-repeat="wish in wishs | filter:search">
         <div class="card">
             <img src="{{wish.imageLink}}"/>
             <div class="caption">
