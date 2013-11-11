@@ -1,7 +1,9 @@
 package net.pvardanega.wishlist.business.users;
 
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -23,6 +25,15 @@ public class UsersResource {
         return usersCollection
                 .findOne("{userId: " + userId + "}")
                 .as(User.class);
+    }
+
+    @POST
+    @Path("/{userId}/wishs")
+    @Consumes(value = MediaType.APPLICATION_JSON)
+    @Produces(value = MediaType.APPLICATION_JSON)
+    public Wish addNewWish(@PathParam("userId") Long userId, Wish wish) {
+        usersCollection.update("{userId: " + userId + "}").with("{$push: {wishs: #}}", wish);
+        return null;
     }
 
 }

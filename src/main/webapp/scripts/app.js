@@ -9,6 +9,10 @@ var module = angular.module('wishlist', [])
                 templateUrl: 'views/users/wishs.html',
                 controller: 'UsersCtrl'
             })
+            .when('/new', {
+                templateUrl: 'views/wish/new.html',
+                controller: 'WishsCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

@@ -1,14 +1,16 @@
 <div class="row">
     <div class="col-md-4" ng-repeat="wish in wishs | filter:search">
         <div class="card">
-            <img src="{{wish.imageLink}}"/>
+            <img ng-src="{{wish.imageLink}}"/>
             <div class="caption">
                 <h3>{{wish.title}}</h3>
-                <p>{{wish.price}}</p>
+                <p>{{wish.price}} &euro;</p>
                 <p>
                     <a href="#" class="btn btn-primary" role="button">Button</a>
-                    <a href="{{wish.link}}" target="_blank" class="btn btn-default" role="button"><span
-                            class="glyphicon glyphicon-search"></span> Voir</a></p>
+                    <a href="{{wish.link}}" target="_blank" class="btn btn-default" role="button">
+                        <span class="glyphicon glyphicon-search"></span> Voir
+                    </a>
+                </p>
             </div>
         </div>
     </div>
