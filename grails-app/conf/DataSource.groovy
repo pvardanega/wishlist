@@ -30,22 +30,15 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
-            driverClassName = "com.mysql.jdbc.Driver"
-            dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-            url = System.getProperty("db.url")
-            username = System.getProperty("db.username")
-            password = System.getProperty("db.password")
+            driverClassName = "org.postgresql.Driver"
+            dialect = org.hibernate.dialect.PostgreSQLDialect
+
+            uri = new URI(System.env.DATABASE_URL)
+            url = "jdbc:postgresql://"+uri.host+uri.path
+            username = uri.userInfo.split(":")[0]
+            password = uri.userInfo.split(":")[1]
+
             pooled = true
-            properties {
-               maxActive = -1
-               minEvictableIdleTimeMillis=1800000
-               timeBetweenEvictionRunsMillis=1800000
-               numTestsPerEvictionRun=3
-               testOnBorrow=true
-               testWhileIdle=true
-               testOnReturn=true
-               validationQuery="SELECT 1"
-            }
         }
     }
 }
