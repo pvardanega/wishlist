@@ -1,6 +1,6 @@
 package com.pvardanega
 
-class User {
+class UserAccount {
 
 	transient springSecurityService
 

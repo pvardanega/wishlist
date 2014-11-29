@@ -17,16 +17,6 @@ environments {
             password = ""
         }
     }
-    test {
-        dataSource {
-            dbCreate = "create-drop"
-            driverClassName = "com.mysql.jdbc.Driver"
-            dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
-            url = System.getProperty("db.url")
-            username = System.getProperty("db.username")
-            password = System.getProperty("db.password")
-        }
-    }
     production {
         dataSource {
             dbCreate = "update"
@@ -34,7 +24,7 @@ environments {
             dialect = org.hibernate.dialect.PostgreSQLDialect
 
             uri = new URI(System.env.DATABASE_URL)
-            url = "jdbc:postgresql://"+uri.host+uri.path
+            url = "jdbc:postgresql://"+uri.host+uri.path+"?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory"
             username = uri.userInfo.split(":")[0]
             password = uri.userInfo.split(":")[1]
 

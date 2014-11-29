@@ -4,7 +4,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder
 
 class UserRole implements Serializable {
 
-	User user
+	UserAccount user
 	Role role
 
 	boolean equals(other) {
@@ -28,11 +28,11 @@ class UserRole implements Serializable {
 			[userId: userId, roleId: roleId]
 	}
 
-	static UserRole create(User user, Role role, boolean flush = false) {
+	static UserRole create(UserAccount user, Role role, boolean flush = false) {
 		new UserRole(user: user, role: role).save(flush: flush, insert: true)
 	}
 
-	static boolean remove(User user, Role role, boolean flush = false) {
+	static boolean remove(UserAccount user, Role role, boolean flush = false) {
 		UserRole instance = UserRole.findByUserAndRole(user, role)
 		if (!instance) {
 			return false
@@ -42,7 +42,7 @@ class UserRole implements Serializable {
 		true
 	}
 
-	static void removeAll(User user) {
+	static void removeAll(UserAccount user) {
 		executeUpdate 'DELETE FROM UserRole WHERE user=:user', [user: user]
 	}
 

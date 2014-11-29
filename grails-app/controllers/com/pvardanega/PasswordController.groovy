@@ -10,8 +10,8 @@ class PasswordController {
     static allowedMethods = [update: "POST"]
 
     def edit() {
-        User loggedInUser = springSecurityService.currentUser as User
-        def userInstance = User.get(params.id)
+        UserAccount loggedInUser = springSecurityService.currentUser as UserAccount
+        def userInstance = UserAccount.get(params.id)
         if (!userInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), params.id])
             redirect(action: "list")
@@ -26,8 +26,8 @@ class PasswordController {
     }
 
     def update() {
-        User loggedInUser = springSecurityService.currentUser as User
-        def userInstance = User.get(params.id)
+        UserAccount loggedInUser = springSecurityService.currentUser as UserAccount
+        def userInstance = UserAccount.get(params.id)
 
         if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
             actionNotAllowed(loggedInUser)

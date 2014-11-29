@@ -1,4 +1,4 @@
-<%@ page import="com.pvardanega.User" %>
+<%@ page import="com.pvardanega.UserAccount" %>
 
 <div class="control-group ${hasErrors(bean: userInstance, field: 'firstname', 'error')}">
     <label for="firstname" class="control-label"><g:message code="user.firstname.label"/></label>

@@ -17,17 +17,17 @@ class UserController {
 
     @Secured(['ROLE_ADMIN'])
     def list() {
-        [userInstanceList: User.list(), userInstanceTotal: User.count()]
+        [userInstanceList: UserAccount.list(), userInstanceTotal: UserAccount.count()]
     }
 
     @Secured(['ROLE_ADMIN'])
     def create() {
-        [userInstance: new User(params)]
+        [userInstance: new UserAccount(params)]
     }
 
     @Secured(['ROLE_ADMIN'])
     def save() {
-        def userInstance = new User(params)
+        def userInstance = new UserAccount(params)
 
         if (params.password != params.confirmation) {
             userInstance.errors.rejectValue("password", "user.error.password.confirmation.different")
@@ -54,8 +54,8 @@ class UserController {
     }
 
     def edit() {
-        User loggedInUser = springSecurityService.currentUser as User
-        def userInstance = User.get(params.id)
+        UserAccount loggedInUser = springSecurityService.currentUser as UserAccount
+        def userInstance = UserAccount.get(params.id)
 
         if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
             actionNotAllowed(loggedInUser)
@@ -71,8 +71,8 @@ class UserController {
     }
 
     def update() {
-        User loggedInUser = springSecurityService.currentUser as User
-        def userInstance = User.get(params.id)
+        UserAccount loggedInUser = springSecurityService.currentUser as UserAccount
+        def userInstance = UserAccount.get(params.id)
 
         if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
             actionNotAllowed(loggedInUser)
@@ -121,8 +121,8 @@ class UserController {
     }
 
     def delete() {
-        User loggedInUser = springSecurityService.currentUser as User
-        def userInstance = User.get(params.id)
+        UserAccount loggedInUser = springSecurityService.currentUser as UserAccount
+        def userInstance = UserAccount.get(params.id)
 
         if (!loggedInUser.isAdmin() && loggedInUser != userInstance) {
             actionNotAllowed(loggedInUser)

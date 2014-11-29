@@ -1,4 +1,4 @@
-<%@ page import="com.pvardanega.User" %>
+<%@ page import="com.pvardanega.UserAccount" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -44,7 +44,7 @@
                                 </g:link>
                             </li>
 
-                            <g:each in="${User.findAllByIdNotEqual(loggedInUserId.toLong())}" var="user">
+                            <g:each in="${UserAccount.findAllByIdNotEqual(loggedInUserId.toLong())}" var="user">
                                 <li class="${userIdToShow == user.id ? "active" : ""}">
                                     <g:link controller="product" action="list" params="${[userId: user.id]}">
                                         <i class="icon-list-alt"></i> ${user.username}
@@ -88,7 +88,7 @@
                                 </div>
                                 <a href="#deleteUserModal" role="button" data-toggle="modal"><i class="icon-trash"></i> <g:message code="app.menu.personal.delete"/></a>
                             </li>
-                            <g:if test="${User.findById(loggedInUserId.toLong()).isAdmin()}">
+                            <g:if test="${UserAccount.findById(loggedInUserId.toLong()).isAdmin()}">
                                 <li class="nav-header"><g:message code="app.menu.title.admin"/></li>
                                 <li class="${request.requestURL.contains(createLink(controller: "user", action:"list")) ? "active":""}">
                                     <g:link controller="user" action="list">

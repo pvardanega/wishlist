@@ -15,8 +15,8 @@ class ProductController {
     }
 
     def list() {
-        User loggedInUser = springSecurityService.currentUser as User
-        User user = User.findById(params.userId)
+        UserAccount loggedInUser = springSecurityService.currentUser as UserAccount
+        UserAccount user = UserAccount.findById(params.userId)
         def myList = loggedInUser == user
 
         def products
@@ -35,7 +35,7 @@ class ProductController {
 
     def save() {
         def productInstance = new Product(params)
-        productInstance.createdBy = springSecurityService.currentUser as User;
+        productInstance.createdBy = springSecurityService.currentUser as UserAccount;
         if (productInstance?.link != null
                 && !productInstance?.link?.startsWith("http://")
                 && !productInstance?.link?.startsWith("https://")) {
@@ -119,7 +119,7 @@ class ProductController {
             return
         }
 
-        product.offeredBy = springSecurityService.currentUser as User;
+        product.offeredBy = springSecurityService.currentUser as UserAccount;
 
         if (!product.save(flush: true)) {
             flash.message = message(code: 'default.error.message')

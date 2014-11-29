@@ -1,4 +1,4 @@
-<%@ page import="com.pvardanega.User" %>
+<%@ page import="com.pvardanega.UserAccount" %>
 <!doctype html>
 <html>
 <head>

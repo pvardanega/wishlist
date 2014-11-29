@@ -9,3 +9,4 @@
 		<g:renderException exception="${exception}" />
 	</body>
 </html>
+</html>

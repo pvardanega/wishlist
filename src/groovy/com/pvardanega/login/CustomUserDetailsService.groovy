@@ -1,6 +1,6 @@
 package com.pvardanega.login
 
-import com.pvardanega.User
+import com.pvardanega.UserAccount
 import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUser
 import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserDetailsService
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
@@ -18,8 +18,8 @@ class CustomUserDetailsService implements GrailsUserDetailsService {
 
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User.withTransaction { status ->
-            User user = User.findByEmail(username.toLowerCase())
+        UserAccount.withTransaction { status ->
+            UserAccount user = UserAccount.findByEmail(username.toLowerCase())
             if (!user)
                 throw new UsernameNotFoundException('User not found', username)
 

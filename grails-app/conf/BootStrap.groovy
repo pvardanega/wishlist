@@ -1,5 +1,5 @@
 import com.pvardanega.Role
-import com.pvardanega.User
+import com.pvardanega.UserAccount
 import com.pvardanega.UserRole
 
 class BootStrap {
@@ -10,13 +10,13 @@ class BootStrap {
                 def adminRole = new Role(authority: Role.ROLE_ADMIN).save(flush: true)
                 def userRole = new Role(authority: Role.ROLE_USER).save(flush: true)
 
-                def pj = new User(username: 'Pierre-Jean V.', email: 'pj@yopmail.com', firstname: 'Pierre-Jean',
+                def pj = new UserAccount(username: 'Pierre-Jean V.', email: 'pj@yopmail.com', firstname: 'Pierre-Jean',
                         lastname: 'Vardanega', enabled: true, password: 'password').save(flush: true)
 
-                def amira = new User(username: 'Amira L.', email: 'amira@yopmail.com', firstname: 'Amira',
+                def amira = new UserAccount(username: 'Amira L.', email: 'amira@yopmail.com', firstname: 'Amira',
                         lastname: 'Lakhal', enabled: true, password: 'password').save(flush: true)
 
-                def baptiste = new User(username: 'Baptiste V.', email: 'baptiste@yopmail.com', firstname: 'Baptiste',
+                def baptiste = new UserAccount(username: 'Baptiste V.', email: 'baptiste@yopmail.com', firstname: 'Baptiste',
                         lastname: 'Vardanega', enabled: true, password: 'password').save(flush: true)
 
                 UserRole.create pj, adminRole, true
@@ -32,7 +32,7 @@ class BootStrap {
                     new Role(authority: Role.ROLE_USER).save(flush: true)
                 }
                 if (!UserRole.findByRole(adminRole)) {
-                    def adminUser = new User(username: 'admin', email: 'admin@yopmail.com',
+                    def adminUser = new UserAccount(username: 'admin', email: 'admin@yopmail.com',
                             firstname: 'firstname', lastname: 'lastname', enabled: true,
                             password: 'password')
                     adminUser.save(flush: true)
